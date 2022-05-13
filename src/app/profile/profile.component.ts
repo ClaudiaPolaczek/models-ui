@@ -5,7 +5,6 @@ import {Subject, zip} from 'rxjs';
 
 import {FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 
-
 export class Person {
   constructor(
     public name: string,
@@ -27,9 +26,9 @@ export class Waypoint {
 }
 
 @Component({
-  selector: 'app-route',
-  templateUrl: './route.component.html',
-  styleUrls: ['./route.component.css'],
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class ProfileComponent implements OnInit {
