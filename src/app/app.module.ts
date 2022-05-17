@@ -11,12 +11,23 @@ import { AccountComponent } from './account/account.component';
 import { AdminComponent } from './admin/admin.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { PhotoshootComponent } from './photoshoot/photoshoot.component';
-import { PrimeNGConfig } from 'primeng/api';
+import {FilterService, PrimeNGConfig} from 'primeng/api';
 import {MenubarModule} from 'primeng/menubar';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import { RegisterComponent } from './register/register.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CardModule} from 'primeng/card';
+import {PasswordModule} from 'primeng/password';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {PanelModule} from 'primeng/panel';
+import {MessagesModule} from 'primeng/messages';
+import {KeyFilterModule} from 'primeng/keyfilter';
+import {MessageModule} from 'primeng/message';
+import {CommonModule} from '@angular/common';
+import {DropdownModule} from 'primeng/dropdown';
+import {CheckboxModule} from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
@@ -37,9 +48,21 @@ import {ReactiveFormsModule} from '@angular/forms';
     MenubarModule,
     InputTextModule,
     ButtonModule,
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    CardModule,
+    PasswordModule,
+    BrowserAnimationsModule,
+    RadioButtonModule,
+    PanelModule,
+    MessagesModule,
+    KeyFilterModule,
+    MessageModule,
+    CommonModule,
+    DropdownModule,
+    CheckboxModule
   ],
-  providers: [PrimeNGConfig
+  providers: [PrimeNGConfig, FilterService
     //{ provide: HTTP_INTERCEPTORS, useClass: BearerAuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

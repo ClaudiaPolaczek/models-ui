@@ -1,22 +1,27 @@
 <div class="container">
-<mat-card class="example-card">
-  <mat-tab-group mat-align-tabs="center" dynamicHeight>
-    <mat-tab label="Login">
-      <div [formGroup]="loginForm" class="tab-container">
-        <mat-form-field class="full-width">
-          <mat-label>Email</mat-label>
-          <input name="username" type="email" matInput formControlName="email">
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <mat-label>Password</mat-label>
-          <input type="password" matInput formControlName="password">
-        </mat-form-field>
-        <button class="button" (click)="login();" mat-raised-button>Log in</button>
+  <form [formGroup]="loginForm" novalidate>
+  <p-card header="Login"[style]="{width: '360px'}" styleClass="p-card-shadow" class="example-card">
+    <div class="grid p-fluid" class="tab-container">
+      <div class="col-12">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+          <input [formGroup]="loginForm" type="email" formControlName="email" pInputText placeholder="Email">
+        </div>
       </div>
-    </mat-tab>
-  </mat-tab-group>
-</mat-card>
-<div class="uploader-status">
-  <mat-spinner *ngIf="spin"></mat-spinner>
-</div>
+      <div class="col-12">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+          <p-password [formGroup]="loginForm" [toggleMask]="true" formControlName="password"></p-password>
+        </div>
+      </div>
+      <div class="col-12" class="buttons">
+        <ng-template pTemplate="footer">
+          <p-button label="Login" icon="pi pi-user" class="button" (click)="login();"></p-button>
+          <p-button label="Załóż konto" styleClass="p-button-secondary" [style]="{'margin-left': '1em'}"
+                    (click)="register();"></p-button>
+        </ng-template>
+      </div>
+    </div>
+  </p-card>
+  </form>
 </div>

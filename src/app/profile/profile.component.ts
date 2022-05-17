@@ -4,6 +4,9 @@ import {environment} from '../../environments/environment';
 import {Subject, zip} from 'rxjs';
 
 import {FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {User} from '../user';
+import {AuthenticationService} from '../authentication.service';
+import {ProfileService} from './profile.service';
 
 export class Person {
   constructor(
@@ -33,13 +36,19 @@ export class Waypoint {
 })
 export class ProfileComponent implements OnInit {
 
+  user: User;
+
+
   constructor(
+    private service: ProfileService,
+    private authService: AuthenticationService,
     private logger: NGXLogger,
-  ) {
-    // this.createForms();
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.authService.currentUser.subscribe(user =>
+      this.user = user
+    );
   }
 
 }

@@ -1,0 +1,23 @@
+.col-12 {
+  flex: 0 0 auto;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.example-card {
+  margin: 50px;
+  width: 20%;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.buttons{
+  align-items: center;
+  justify-content: center;
+  margin-left: 1rem;
+}

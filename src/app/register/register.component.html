@@ -1,59 +1,161 @@
-<div class="container">
-<mat-card class="example-card">
-  <mat-tab-group mat-align-tabs="center" dynamicHeight>
-    <mat-tab label="Register">
-      <div [formGroup]="registerForm" class="tab-container">
-        <mat-form-field class="full-width">
-          <mat-label>Name</mat-label>
-          <input type="text" matInput formControlName="name">
-          <mat-error *ngIf="registerForm.controls.name.errors?.required">
-            Name is <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <mat-label>Surname</mat-label>
-          <input type="text" matInput formControlName="surname">
-          <mat-error *ngIf="registerForm.controls.surname.errors?.required">
-            Surname is <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <mat-label>Email</mat-label>
-          <input type="email" matInput formControlName="email">
-          <mat-error
-            *ngIf="registerForm.controls.email.hasError('email') && !registerForm.controls.email.hasError('required')"
-          >
-            Please enter a valid email address
-          </mat-error>
-          <mat-error *ngIf="registerForm.controls.email.hasError('required')">
-            Email is <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <mat-label>Password</mat-label>
-          <input type="password" matInput formControlName="password">
-          <mat-error
-            *ngIf="registerForm.controls.password.errors?.minlength && !registerForm.controls.password.errors?.required"
-          >
-            Please enter a password with at least 8 characters
-          </mat-error>
-          <mat-error *ngIf="registerForm.controls.password.errors?.required">
-            Password is <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <mat-label>Repeat password</mat-label>
-          <input type="password" matInput formControlName="repeatPassword">
-          <mat-error *ngIf="registerForm.controls.repeatPassword.errors?.mustMatch">
-            Passwords must match
-          </mat-error>
-        </mat-form-field>
-        <button class="button" (click)="register();" mat-raised-button>Register</button>
+<p-messages [(value)]="msgs" [enableService]="false"></p-messages>
+<div [style]="{alignContent: 'center'}">
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <p-card header="{{'Rejestracja'}}" [style]="{width: '60%', alignContent: 'center'}" styleClass="p-card-shadow" class="example-card">
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 15px 0px">
+        <div class="ui-grid-row">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+              {{'Profesja *:'}}
+            </div>
+            <div class="ui-grid-col-6">
+              <p-dropdown [options]="occupation" formControlName="occupation" placeholder="Profesja" [showClear]="true"></p-dropdown>
+            </div>
+            <div class="ui-grid-col-4">
+              <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['gender'].valid&&registerForm.controls['gender'].dirty">
+                <i class="fa fa-close"></i>
+                {{'Profesja jest wymagana'}}
+              </div>
+            </div>
+          </div>
+          <div class="ui-grid-col-2">
+            {{'Imię *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <input pInputText type="text" pKeyFilter="alpha" formControlName="name" placeholder="{{'Jan'}}"/>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['name'].valid&&registerForm.controls['name'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Imię jest wymagane'}}
+            </div>
+          </div>
+          <div class="ui-grid-col-2">
+            {{'Nazwisko *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <input pInputText type="text" pKeyFilter="alpha" formControlName="surname" placeholder="{{'Kowalski'}}"/>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['surname'].valid&&registerForm.controls['surname'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Nazwisko jest wymagane'}}
+            </div>
+          </div>
+          <div class="ui-grid-col-2">
+            {{'Adres email *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <input pInputText type="text" formControlName="email" placeholder="{{'xxxx@gmail.com:'}}" style="margin-right: .5em" [pKeyFilter]="emailRegex" [pValidateOnly]="true"/>
+            <p-message severity="error" text="Niepoprawny adres email" [@errorState]="registerForm.controls['email'].dirty && !registerForm.controls['email'].valid ? 'visible' : 'hidden'"></p-message>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['email'].valid&&registerForm.controls['email'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Nazwisko jest wymagane'}}
+            </div>
+          </div>
+          <div class="ui-grid-col-2">
+            {{'Hasło *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <p-password formControlName="password" [toggleMask]="true" placeholder="{{'xxx123'}}"></p-password>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['password'].valid&&registerForm.controls['password'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Hasło jest wymagane'}}
+            </div>
+          </div>
+          <div class="ui-grid-col-2">
+            {{'Potwierdź hasło *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <p-password formControlName="repeatPassword" [feedback]="false"></p-password>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['repeatPassword'].valid&&registerForm.controls['repeatPassword'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Hasło jest wymagane'}}
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+              {{'Płeć *:'}}
+            </div>
+            <div class="ui-grid-col-6">
+              <p-dropdown [options]="gender" formControlName="gender" placeholder="Wybierz płeć" [showClear]="true"></p-dropdown>
+            </div>
+            <div class="ui-grid-col-4">
+              <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['gender'].valid&&registerForm.controls['gender'].dirty">
+                <i class="fa fa-close"></i>
+                {{'Płeć jest wymagana'}}
+              </div>
+            </div>
+          </div>
+          <div class="ui-grid-col-2">
+            {{'Rok urodzenia *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <input pInputText type="text" pKeyFilter="int" formControlName="birthdayYear" placeholder="{{'1900'}}"/>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['birthdayYear'].valid&&registerForm.controls['birthdayYear'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Rok urodzenia jest wymagany'}}
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+              {{'Województwo *:'}}
+            </div>
+            <div class="ui-grid-col-6">
+              <p-dropdown [options]="regon" formControlName="region" placeholder="Wybierz województwo" [showClear]="true"></p-dropdown>
+            </div>
+            <div class="ui-grid-col-4">
+              <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['region'].valid&&registerForm.controls['region'].dirty">
+                <i class="fa fa-close"></i>
+                {{'Województwo jest wymagane'}}
+              </div>
+            </div>
+          </div>
+          <div class="ui-grid-col-2">
+            {{'Miasto *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <input pInputText type="text" pKeyFilter="alpha" formControlName="city" placeholder="{{'Warszawa'}}"/>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['city'].valid&&registerForm.controls['surname'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Miasto jest wymagane'}}
+            </div>
+          </div>
+          <div class="ui-grid-col-2">
+            {{'Numer telefonu *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <input pInputText type="text" pKeyFilter="int" formControlName="phoneNumber" placeholder="{{'999888777'}}"/>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['phoneNumber'].valid&&registerForm.controls['phoneNumber'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Numer telefonu jest wymagany'}}
+            </div>
+          </div>
+          <div class="ui-grid-col-2">
+            <p-checkbox [style]="{'margin-top': '20px', 'margin-right': '20px'}" formControlName="regulationsAgreement" [binary]="true" inputId="binary"></p-checkbox>
+            <label for="binary">Oświadczam, że zapoznałem się z regulaminem serwisu i zobowiązuję się do jego przestrzegania</label>        </div>
+        </div>
+        <div class="col-12" class="buttons">
+          <ng-template pTemplate="footer">
+            <p-button label="Utwórz konto" icon="pi pi-user" class="button" (click)="register();"></p-button>
+            <p-button label="Anuluj" styleClass="p-button-secondary" [style]="{'margin-left': '1em'}"
+                      (click)="decline();"></p-button>
+          </ng-template>
+        </div>
       </div>
-    </mat-tab>
-  </mat-tab-group>
-</mat-card>
-<div class="uploader-status">
-  <mat-spinner *ngIf="spin"></mat-spinner>
+    </p-card>
+  </form>
 </div>
-</div>
+

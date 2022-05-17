@@ -36,3 +36,9 @@ li {
   padding: 0;
   list-style-type: none;
 }
+
+.col-12 {
+  flex: 0 0 auto;
+  padding: 0.5rem;
+  width: 100%;
+}

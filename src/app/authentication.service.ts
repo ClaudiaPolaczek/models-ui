@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { concatMap, map, tap } from 'rxjs/operators';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
+import {catchError, concatMap, map, tap} from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 import { User } from './user';
@@ -33,12 +33,42 @@ export class AuthenticationService {
     this.currentUserSubject.next(user);
   }
 
-  register(email: string, password: string, repeatPassword: string)
+  registerPhotographer(email: string, password: string, repeatPassword: string, name: string, surname: string, birthdayYear: number,
+                       gender: string, region: string, city: string, phoneNumber: number, regulationsAgreement: number )
     : Observable<User> {
-    return this.http.post<any>(`${environment.apiUrl}/dj-rest-auth/registration/`, {
+    return this.http.post<any>(`${environment.apiUrl}/photographers/`, {
       email,
       password1: password,
       password2: repeatPassword,
+      first_name: name,
+      last_name: surname,
+      birthday_year: birthdayYear,
+      gender,
+      region,
+      city,
+      phone_number: phoneNumber,
+      regulations_agreement: regulationsAgreement
+    }).pipe(
+      concatMap(response => this.getUserData(response.key)),
+      tap(user => this.storeUser(user)),
+    );
+  }
+
+  registerModel(email: string, password: string, repeatPassword: string, name: string, surname: string, birthdayYear: number,
+                gender: string, region: string, city: string, phoneNumber: number, regulationsAgreement: number )
+    : Observable<User> {
+    return this.http.post<any>(`${environment.apiUrl}/models/`, {
+      email,
+      password1: password,
+      password2: repeatPassword,
+      name,
+      surname,
+      birthdayYear,
+      gender,
+      region,
+      city,
+      phoneNumber,
+      regulationsAgreement
     }).pipe(
       concatMap(response => this.getUserData(response.key)),
       tap(user => this.storeUser(user)),
@@ -46,7 +76,7 @@ export class AuthenticationService {
   }
 
   login(email: string, password: string): Observable<User> {
-    return this.http.post<any>(`${environment.apiUrl}/dj-rest-auth/login/`, { email, password })
+    return this.http.post<any>(`${environment.apiUrl}/dj-rest-auth/login/`, { email,   password })
       .pipe(
         concatMap(response => this.getUserData(response.key)),
         tap(user => this.storeUser(user)),

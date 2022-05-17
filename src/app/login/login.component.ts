@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AuthenticationService} from '../authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +11,11 @@ import {AuthenticationService} from '../authentication.service';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  // TODO loading status
   spin = false;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private router: Router,
+              private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
   ) {
     this.loginForm = formBuilder.group({
@@ -32,15 +35,13 @@ export class LoginComponent implements OnInit {
       controls.password.value,
     ).subscribe(user => {
       this.spin = false;
-      this.router.navigate(['/route']);
+      this.router.navigate(['/profiles']);
     }, _ => {
       this.spin = false;
-      this.snackBar.open('Wrong email or password', 'Ok', {
-        duration: 5000,
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
     });
   }
 
+  register(): void {
+    this.router.navigate(['/register']);
+  }
 }
