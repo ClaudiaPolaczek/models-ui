@@ -28,6 +28,7 @@ import {MessageModule} from 'primeng/message';
 import {CommonModule} from '@angular/common';
 import {DropdownModule} from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {CheckboxModule} from 'primeng/checkbox';
     HttpClientModule,
     AppRoutingModule,
     BrowserModule,
+    RouterModule,
     LoggerModule.forRoot({level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.OFF}),
     MenubarModule,
     InputTextModule,

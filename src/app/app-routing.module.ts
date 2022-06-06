@@ -12,12 +12,15 @@ import {RegisterComponent} from './register/register.component';
 
 
 const routes: Routes = [
-  { path: '', component: AccountComponent/*, canActivate: [AuthGuard]*/ },
-  { path: 'profiles', component: ProfileComponent/*, canActivate: [AuthGuard]*/ },
-  { path: 'portfolios', component: PortfolioComponent/*, canActivate: [AuthGuard]*/ },
-  { path: 'photoshoot', component: PhotoshootComponent/*, canActivate: [AuthGuard]*/ },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  {
+    path: '',
+    component: AccountComponent/*, canActivate: [AuthGuard]*/
+  },
+  { path: 'profiles', pathMatch: 'full', component: ProfileComponent/*, canActivate: [AuthGuard]*/ },
+  { path: 'portfolios', pathMatch: 'full', component: PortfolioComponent/*, canActivate: [AuthGuard]*/ },
+  { path: 'photoshoot', pathMatch: 'full', component: PhotoshootComponent/*, canActivate: [AuthGuard]*/ },
+  { path: 'login', pathMatch: 'full', component: LoginComponent },
+  { path: 'register', pathMatch: 'full', component: RegisterComponent },
 ];
 
 @NgModule({

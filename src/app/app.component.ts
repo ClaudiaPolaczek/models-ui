@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthenticationService} from './authentication.service';
-import { PrimeNGConfig } from 'primeng/api';
-import {MenuItem} from 'primeng/api';
-
+import {MenuItem, PrimeNGConfig} from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -15,78 +13,96 @@ export class AppComponent implements OnInit {
   items: MenuItem[];
   constructor(private router: Router, private authenticationService: AuthenticationService, private primengConfig: PrimeNGConfig) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.authenticationService.currentUser.subscribe(user => {
       this.loggedIn = user !== null;
       // this.loggedIn = true;
-      this.primengConfig.ripple = true;
-      this.items = [
-        {
-          label: 'Profil',
-          icon: 'pi pi-fw pi-file',
-          items: [
-            {
-              label: 'Dane osobowe',
-              icon: 'pi pi-fw pi-plus',
-              items: [
-                {
-                  label: 'Zmiana hasła',
-                  icon: 'pi pi-fw pi-bookmark'
-                },
-                {
-                  label: 'Instagram',
-                  icon: 'pi pi-fw pi-video'
-                },
-                {
-                  label: 'Dane modelki',
-                  icon: 'pi pi-fw pi-video'
-                },
-              ]
-            },
-            {
-              label: 'Terminarz',
-              icon: 'pi pi-fw pi-plus'
-            },
-            {
-              label: 'Zaproszenia',
-              icon: 'pi pi-fw pi-trash'
-            },
-            {
-              label: 'Powiadomienia',
-              icon: 'pi pi-fw pi-external-link'
-            },
-            {
-              label: 'Portfolio',
-              icon: 'pi pi-fw pi-plus',
-              items: [
-                {
-                  label: 'Albumy',
-                  icon: 'pi pi-fw pi-bookmark'
-                },
-                {
-                  label: 'Nowy album',
-                  icon: 'pi pi-fw pi-video'
-                },
-
-              ]
-            }
-          ]
-        },
-        {
-          label: 'Portfolia',
-          icon: 'pi pi-fw pi-user',
-          routerLink: 'portfolios'
-        },
-        {
-          label: 'Profile',
-          icon: 'pi pi-fw pi-calendar',
-          routerLink: 'profiles'
-        }
-      ];
     });
+    this.fillMenu();
+  }
+
+  fillMenu() {
+    this.items = [
+      {
+        label: 'Profil',
+        icon: 'pi pi-fw pi-file',
+        items: [{
+            label: 'Dane osobowe',
+            icon: 'pi pi-fw pi-plus',
+            routerLink: 'profiles',
+            items: [
+              {
+                label: 'Zmiana hasła',
+                icon: 'pi pi-fw pi-bookmark',
+                routerLink: 'profiles',
+              },
+              {
+                label: 'Instagram',
+                icon: 'pi pi-fw pi-video',
+                routerLink: 'instagram'
+              },
+              {
+                label: 'Dane modelki',
+                icon: 'pi pi-fw pi-video',
+                routerLink: 'modeldata'
+              },
+            ]
+          },
+          {
+            label: 'Terminarz',
+            icon: 'pi pi-fw pi-plus',
+            routerLink: 'plan'
+          },
+          {
+            label: 'Zaproszenia',
+            icon: 'pi pi-fw pi-trash',
+            routerLink: 'invitations'
+          },
+          {
+            label: 'Powiadomienia',
+            icon: 'pi pi-fw pi-external-link',
+            routerLink: 'notifications'
+          },
+          {
+            label: 'Portfolio',
+            icon: 'pi pi-fw pi-plus',
+            routerLink: 'portfolio',
+            items: [
+              {
+                label: 'Albumy',
+                icon: 'pi pi-fw pi-bookmark',
+                routerLink: 'albums'
+              },
+              {
+                label: 'Nowy album',
+                icon: 'pi pi-fw pi-video',
+                routerLink: 'newalbum'
+              },
+
+            ]
+          }
+        ]
+      },
+      {
+        label: 'Portfolia',
+        icon: 'pi pi-fw pi-user',
+        routerLink: 'portfolios'
+      },
+      {
+        label: 'Profile',
+        icon: 'pi pi-fw pi-calendar',
+        routerLink: 'profiles'
+      }
+    ];
   }
 
   logout(): void {
+    this.authenticationService.logout().subscribe(_ => {
+      this.router.navigate(['/login']);
+    });
+  }
+
+  login(): void {
     this.authenticationService.logout().subscribe(_ => {
       this.router.navigate(['/login']);
     });
