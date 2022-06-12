@@ -17,6 +17,7 @@ const routes: Routes = [
     component: AccountComponent/*, canActivate: [AuthGuard]*/
   },
   { path: 'profiles', pathMatch: 'full', component: ProfileComponent/*, canActivate: [AuthGuard]*/ },
+  { path: 'account', pathMatch: 'full', component: AccountComponent/*, canActivate: [AuthGuard]*/ },
   { path: 'portfolios', pathMatch: 'full', component: PortfolioComponent/*, canActivate: [AuthGuard]*/ },
   { path: 'photoshoot', pathMatch: 'full', component: PhotoshootComponent/*, canActivate: [AuthGuard]*/ },
   { path: 'login', pathMatch: 'full', component: LoginComponent },

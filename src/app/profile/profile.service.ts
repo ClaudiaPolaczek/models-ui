@@ -98,9 +98,8 @@ export class ProfileService {
     );
   }
 
-  deleteModel(id, data): Observable<any> {
-    console.log('data', data);
-    return this.http.delete(`${environment.apiUrl}/models/${id}/`, data)
+  deleteModel(id): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/models/${id}/`)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return throwError(error);
@@ -108,9 +107,8 @@ export class ProfileService {
       );
   }
 
-  deletePhotographer(id, data): Observable<any> {
-    console.log('data', data);
-    return this.http.delete(`${environment.apiUrl}/photographers/${id}/`, data)
+  deletePhotographer(id): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/photographers/${id}/`)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return throwError(error);

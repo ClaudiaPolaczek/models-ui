@@ -1,0 +1,21 @@
+<p-messages [(value)]="msgs" [enableService]="false"></p-messages>
+<div [style]="{alignContent: 'center'}">
+  <form [formGroup]="instagramForm" (ngSubmit)="save()">
+    <p-card header="{{'Rejestracja'}}" [style]="{width: '60%', alignContent: 'center'}" styleClass="p-card-shadow" class="example-card">
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 15px 0px">
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            {{'Nazwa konta w serwisie instagram *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!instagramForm.controls['instagram'].valid&&instagramForm.controls['instagram'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Nazwa użytkownika jest wymagana'}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </p-card>
+  </form>
+</div>
+

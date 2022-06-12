@@ -1,0 +1,91 @@
+<p-messages [(value)]="msgs" [enableService]="false"></p-messages>
+<div [style]="{alignContent: 'center'}">
+  <form [formGroup]="registerForm" (ngSubmit)="save()">
+    <p-card header="{{'Rejestracja'}}" [style]="{width: '60%', alignContent: 'center'}" styleClass="p-card-shadow" class="example-card">
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 15px 0px">
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            {{'Imię *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <input pInputText type="text" pKeyFilter="alpha" formControlName="name" placeholder="{{'Jan'}}"/>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['name'].valid&&registerForm.controls['name'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Imię jest wymagane'}}
+            </div>
+          </div>
+          <div class="ui-grid-col-2">
+            {{'Nazwisko *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <input pInputText type="text" pKeyFilter="alpha" formControlName="surname" placeholder="{{'Kowalski'}}"/>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['surname'].valid&&registerForm.controls['surname'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Nazwisko jest wymagane'}}
+            </div>
+          </div>
+          <div class="ui-grid-col-2">
+            {{'Rok urodzenia *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <input pInputText type="text" pKeyFilter="int" formControlName="birthdayYear" placeholder="{{'1900'}}"/>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['birthdayYear'].valid&&registerForm.controls['birthdayYear'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Rok urodzenia jest wymagany'}}
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+              {{'Województwo *:'}}
+            </div>
+            <div class="ui-grid-col-6">
+              <p-dropdown [options]="regon" formControlName="region" placeholder="Wybierz województwo" [showClear]="true"></p-dropdown>
+            </div>
+            <div class="ui-grid-col-4">
+              <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['region'].valid&&registerForm.controls['region'].dirty">
+                <i class="fa fa-close"></i>
+                {{'Województwo jest wymagane'}}
+              </div>
+            </div>
+          </div>
+          <div class="ui-grid-col-2">
+            {{'Miasto *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <input pInputText type="text" pKeyFilter="alpha" formControlName="city" placeholder="{{'Warszawa'}}"/>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['city'].valid&&registerForm.controls['surname'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Miasto jest wymagane'}}
+            </div>
+          </div>
+          <div class="ui-grid-col-2">
+            {{'Numer telefonu *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <input pInputText type="text" pKeyFilter="int" formControlName="phoneNumber" placeholder="{{'999888777'}}"/>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['phoneNumber'].valid&&registerForm.controls['phoneNumber'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Numer telefonu jest wymagany'}}
+            </div>
+          </div>
+        </div>
+        <div class="col-12" class="buttons">
+          <ng-template pTemplate="footer">
+            <p-button label="Zapisz" icon="pi pi-user" class="button" (click)="save();"></p-button>
+          </ng-template>
+        </div>
+      </div>
+    </p-card>
+  </form>
+</div>
+

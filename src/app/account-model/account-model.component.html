@@ -1,0 +1,28 @@
+<p-messages [(value)]="msgs" [enableService]="false"></p-messages>
+<div [style]="{alignContent: 'center'}">
+  <form [formGroup]="modelForm" (ngSubmit)="save()">
+    <p-card header="{{'Rejestracja'}}" [style]="{width: '60%', alignContent: 'center'}" styleClass="p-card-shadow" class="example-card">
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 15px 0px">
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            {{'Kolor włosów *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!modelForm.controls['hair'].valid&&modelForm.controls['hair'].dirty">
+              <i class="fa fa-close"></i>
+            </div>
+          </div>
+          <div class="ui-grid-col-2">
+            {{'Kolor oczu *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!modelForm.controls['eyes'].valid&&modelForm.controls['eyes'].dirty">
+              <i class="fa fa-close"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </p-card>
+  </form>
+</div>
+

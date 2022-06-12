@@ -29,6 +29,11 @@ import {CommonModule} from '@angular/common';
 import {DropdownModule} from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
 import {RouterModule} from '@angular/router';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { AccountPasswordComponent } from './account-password/account-password.component';
+import { AccountInstagramComponent } from './account-instagram/account-instagram.component';
+import { AccountModelComponent } from './account-model/account-model.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +45,10 @@ import {RouterModule} from '@angular/router';
     PortfolioComponent,
     PhotoshootComponent,
     RegisterComponent,
+    AccountSettingsComponent,
+    AccountPasswordComponent,
+    AccountInstagramComponent,
+    AccountModelComponent,
   ],
   imports: [
     HttpClientModule,
@@ -62,7 +71,8 @@ import {RouterModule} from '@angular/router';
     MessageModule,
     CommonModule,
     DropdownModule,
-    CheckboxModule
+    CheckboxModule,
+    ConfirmDialogModule
   ],
   providers: [PrimeNGConfig, FilterService
     //{ provide: HTTP_INTERCEPTORS, useClass: BearerAuthInterceptor, multi: true },

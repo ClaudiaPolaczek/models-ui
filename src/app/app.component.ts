@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
         items: [{
             label: 'Dane osobowe',
             icon: 'pi pi-fw pi-plus',
-            routerLink: 'profiles',
+            routerLink: 'acccount',
             items: [
               {
                 label: 'Zmiana hasła',

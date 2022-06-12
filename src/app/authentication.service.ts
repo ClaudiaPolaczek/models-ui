@@ -54,6 +54,22 @@ export class AuthenticationService {
     );
   }
 
+  updatePhotographer(name: string, surname: string, birthdayYear: number, gender: string, region: string, city: string, phoneNumber: number)
+    : Observable<User> {
+    return this.http.patch<any>(`${environment.apiUrl}/photographers/`, {
+      name,
+      surname,
+      birthdayYear,
+      gender,
+      region,
+      city,
+      phoneNumber
+    }).pipe(
+      concatMap(response => this.getUserData(response.key)),
+      tap(user => this.storeUser(user)),
+    );
+  }
+
   registerModel(email: string, password: string, repeatPassword: string, name: string, surname: string, birthdayYear: number,
                 gender: string, region: string, city: string, phoneNumber: number, regulationsAgreement: number )
     : Observable<User> {
@@ -75,8 +91,32 @@ export class AuthenticationService {
     );
   }
 
+  updateModel(name: string, surname: string, birthdayYear: number, gender: string, region: string, city: string, phoneNumber: number)
+    : Observable<User> {
+    return this.http.patch<any>(`${environment.apiUrl}/models/`, {
+      name,
+      surname,
+      birthdayYear,
+      gender,
+      region,
+      city,
+      phoneNumber
+    }).pipe(
+      concatMap(response => this.getUserData(response.key)),
+      tap(user => this.storeUser(user)),
+    );
+  }
+
   login(email: string, password: string): Observable<User> {
     return this.http.post<any>(`${environment.apiUrl}/dj-rest-auth/login/`, { email,   password })
+      .pipe(
+        concatMap(response => this.getUserData(response.key)),
+        tap(user => this.storeUser(user)),
+      );
+  }
+
+  passwordChange(newPassword1: string, newPassword2: string, oldPassword: string): Observable<User> {
+    return this.http.post<any>(`${environment.apiUrl}/dj-rest-auth/password/change/`, { newPassword1, newPassword2, oldPassword})
       .pipe(
         concatMap(response => this.getUserData(response.key)),
         tap(user => this.storeUser(user)),
