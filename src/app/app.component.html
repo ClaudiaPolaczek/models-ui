@@ -1,6 +1,5 @@
 <p-menubar [model]="items">
   <ng-template pTemplate="start">
-    <img src="assets/showcase/images/primeng.svg" height="40" class="mr-2">
   </ng-template>
   <ng-template pTemplate="end">
     <button *ngIf="loggedIn" pButton label="Wyloguj" icon="pi pi-power-off" (click)="logout();"></button>
@@ -11,7 +10,7 @@
 <!--<mat-toolbar *ngIf="loggedIn" class="toolbar">
   <li><a href="/profile" class="nav">Profile</a></li>
   <li><a href="/portfolio" class="nav">Portfolio</a></li>
-  <li><a href="/account" class="nav">Account</a></li>
+  <li><a href="/account-user" class="nav">Account</a></li>
   <span class="toolbar-spacer"></span>
   <span (click)="logout();">Logout</span>
 </mat-toolbar>

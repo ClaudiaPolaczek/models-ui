@@ -18,7 +18,6 @@ export class BearerAuthInterceptor implements HttpInterceptor {
         }
       });
     }
-
     return next.handle(request);
   }
 }

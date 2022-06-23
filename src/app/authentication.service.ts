@@ -57,13 +57,13 @@ export class AuthenticationService {
   updatePhotographer(name: string, surname: string, birthdayYear: number, gender: string, region: string, city: string, phoneNumber: number)
     : Observable<User> {
     return this.http.patch<any>(`${environment.apiUrl}/photographers/`, {
-      name,
-      surname,
-      birthdayYear,
+      first_name: name,
+      last_name: surname,
+      birthday_year: birthdayYear,
       gender,
       region,
       city,
-      phoneNumber
+      phone_number: phoneNumber
     }).pipe(
       concatMap(response => this.getUserData(response.key)),
       tap(user => this.storeUser(user)),
@@ -77,14 +77,14 @@ export class AuthenticationService {
       email,
       password1: password,
       password2: repeatPassword,
-      name,
-      surname,
-      birthdayYear,
+      first_name: name,
+      last_name: surname,
+      birthday_year: birthdayYear,
       gender,
       region,
       city,
-      phoneNumber,
-      regulationsAgreement
+      phone_number: phoneNumber,
+      regulations_agreement: regulationsAgreement
     }).pipe(
       concatMap(response => this.getUserData(response.key)),
       tap(user => this.storeUser(user)),
@@ -94,13 +94,13 @@ export class AuthenticationService {
   updateModel(name: string, surname: string, birthdayYear: number, gender: string, region: string, city: string, phoneNumber: number)
     : Observable<User> {
     return this.http.patch<any>(`${environment.apiUrl}/models/`, {
-      name,
-      surname,
-      birthdayYear,
+      first_name: name,
+      last_name: surname,
+      birthday_year: birthdayYear,
       gender,
       region,
       city,
-      phoneNumber
+      phone_number: phoneNumber
     }).pipe(
       concatMap(response => this.getUserData(response.key)),
       tap(user => this.storeUser(user)),
@@ -116,7 +116,11 @@ export class AuthenticationService {
   }
 
   passwordChange(newPassword1: string, newPassword2: string, oldPassword: string): Observable<User> {
-    return this.http.post<any>(`${environment.apiUrl}/dj-rest-auth/password/change/`, { newPassword1, newPassword2, oldPassword})
+    return this.http.post<any>(`${environment.apiUrl}/dj-rest-auth/password/change/`, {
+      new_password1: newPassword1,
+      new_password2: newPassword2,
+      old_password: oldPassword
+    })
       .pipe(
         concatMap(response => this.getUserData(response.key)),
         tap(user => this.storeUser(user)),
