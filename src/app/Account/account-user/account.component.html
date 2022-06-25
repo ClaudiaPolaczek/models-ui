@@ -1,23 +1,33 @@
+
+<p-messages [(value)]="msgs" [enableService]="false"></p-messages>
 <div class="surface-card p-4 shadow-2 border-round">
   <p-card header="Dane osobowe"[style]="{width: '360px'}" styleClass="p-card-shadow" class="example-card">
 <h3 style="margin-top: 0px">{{user.email}}</h3>
-<p><strong>Imię: </strong>{{survey.first_name}}</p>
+<p><strong>Imię: </strong>{{survey.first_name }}</p>
 <p><strong>Nazwisko: </strong>{{survey.last_name}}</p>
 <p><strong>Rok urodzenia: </strong>{{survey.birthday_year}}</p>
 <p><strong>Płeć: </strong>{{getGender(survey.gender)}}</p>
 <p><strong>Województwo: </strong>{{survey.region}}</p>
 <p><strong>Miasto: </strong>{{survey.city}}</p>
 <p><strong>Numer telefonu: </strong>{{survey.phone_number}}</p>
-  <p><strong>Rola: </strong>{{getOccupation(user.role)}}</p>
-
-   <!-- <div style="margin-bottom: 15px">
-      <el-image
-        style="width: 300px; height: 300px"
-        :src="user.user.mainPhotoUrl"
-        :fit="'contain'">
-      </el-image>
-    </div>-->
-
-    <p-button type="primary" [@click]="deleteUser(user)">Usuń profil</p-button>
+    <p><strong>Rola: </strong>{{getOccupation(user.role)}}</p>
+    <!--  <p-confirmPopup></p-confirmPopup>-->
+    <!-- <div style="margin-bottom: 15px">
+       <el-image
+         style="width: 300px; height: 300px"
+         :src="user.user.mainPhotoUrl"
+         :fit="'contain'">
+       </el-image>
+     </div>-->
+    <div class="col-12" class="buttons">
+      <ng-template pTemplate="footer">
+        <p-button label="Usuń profil" icon="pi pi-save" class="button" (click)="deleteUser();"></p-button>
+      </ng-template>
+    </div>
+    <div class="col-12" class="buttons">
+      <ng-template pTemplate="footer">
+        <p-button label="Usuń profil" class="button" (click)="deleteUser();"></p-button>
+      </ng-template>
+    </div>
   </p-card>
 </div>

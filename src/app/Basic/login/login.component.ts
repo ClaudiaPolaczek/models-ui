@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
       controls.password.value,
     ).subscribe(user => {
       this.spin = false;
+      window.location.reload();
       this.router.navigate(['/profiles']);
     }, _ => {
       this.spin = false;

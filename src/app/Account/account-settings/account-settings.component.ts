@@ -4,6 +4,8 @@ import {Message, SelectItem} from 'primeng/api';
 import {AuthenticationService} from '../../authentication.service';
 import {Router} from '@angular/router';
 import {User} from '../../user';
+import {Survey, UserDatails} from '../account-user/account.component';
+import {ProfileService} from '../../Profiles/profile/profile.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -18,16 +20,20 @@ export class AccountSettingsComponent implements OnInit {
   regon: SelectItem[];
   msgs: Message[] = [];
   user: User;
+  userDetails: UserDatails;
+  survey: Survey;
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
+              private profileService: ProfileService,
               private authenticationService: AuthenticationService
   ) {
     this.registerForm = formBuilder.group({
       name: formBuilder.control('', [
         Validators.required,
         Validators.minLength(3)
-      ]),
+      ]
+      ),
       surname: formBuilder.control('',[
         Validators.required,
         Validators.minLength(3)
@@ -102,11 +108,22 @@ export class AccountSettingsComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(user =>
       this.user = user
     );
+    if (this.user.role === 'M') {
+      this.profileService.findModelByEmail(this.user.email).subscribe(model => {
+        this.userDetails = model;
+        this.survey = model.survey;
+      });
+    } else if (this.user.role === 'P') {
+      this.profileService.findPhotographerByEmail(this.user.email).subscribe(photographer => {
+        this.userDetails = photographer;
+        this.survey = photographer.survey;
+      });
+    }
   }
 
   save(): void {
     this.spin = true;
-    if (this.user.role === 'F' ) {
+    if (this.user.role === 'P' ) {
       this.updatePhotographer();
     } else if (this.user.role === 'M') {
       this.updateModel();
@@ -117,21 +134,24 @@ export class AccountSettingsComponent implements OnInit {
     this.spin = true;
     const controls = this.registerForm.controls;
     this.authenticationService.updateModel(
-      controls.name.value,
-      controls.surname.value,
-      controls.birthdayYear.value,
-      controls.gender.value,
-      controls.region.value,
-      controls.city.value,
-      controls.phoneNumber.value
+      controls.name.value === '' ? this.survey.first_name : controls.name.value,
+      controls.surname.value === '' ? this.survey.last_name : controls.surname.value,
+      controls.birthdayYear.value === '' ? this.survey.birthday_year : controls.birthdayYear.value,
+      controls.gender.value === '' ? this.survey.gender : controls.gender.value,
+      controls.region.value === '' ? this.survey.region : controls.region.value,
+      controls.city.value === '' ? this.survey.city : controls.city.value,
+      controls.phoneNumber.value === '' ? this.survey.phone_number : controls.phoneNumber.value
     ).subscribe(user => {
       this.spin = false;
       this.router.navigate(['/profile']);
+      this.msgs = [];
+      this.msgs.push({severity: 'info', summary: 'Success', detail: 'Form Submitted'});
     }, _ => {
       this.spin = false;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: 'Error'});
     });
-    this.msgs = [];
-    this.msgs.push({severity: 'info', summary: 'Success', detail: 'Form Submitted'});
+
   }
 
   updatePhotographer(): void {
@@ -148,11 +168,14 @@ export class AccountSettingsComponent implements OnInit {
     ).subscribe(user => {
       this.spin = false;
       this.router.navigate(['/profile']);
+      this.msgs = [];
+      this.msgs.push({severity: 'info', summary: 'Success', detail: 'Form Submitted'});
     }, _ => {
       this.spin = false;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: 'Error'});
     });
-    this.msgs = [];
-    this.msgs.push({severity: 'info', summary: 'Success', detail: 'Form Submitted'});
+
   }
 
 }

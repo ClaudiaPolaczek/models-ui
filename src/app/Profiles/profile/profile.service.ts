@@ -56,7 +56,7 @@ export class ProfileService {
   }
 
   editPhotographer(id,  data): Observable<any> {
-    return this.http.patch(`${environment.apiUrl}/photographers/${id}/`, data, this.httpOptions).pipe(
+    return this.http.post(`${environment.apiUrl}/photographers/${id}/`, data, this.httpOptions).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(error);
       })
@@ -64,7 +64,7 @@ export class ProfileService {
   }
 
   editModel(id,  data): Observable<any> {
-    return this.http.patch(`${environment.apiUrl}/models/${id}/`, data, this.httpOptions).pipe(
+    return this.http.post(`${environment.apiUrl}/models/${id}/`, data, this.httpOptions).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(error);
       })
@@ -102,20 +102,18 @@ export class ProfileService {
   }
 
   deleteModel(id): Observable<any> {
-    return this.http.delete(`${environment.apiUrl}/models/${id}/`)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          return throwError(error);
-        })
-      );
+    return this.http.delete(`${environment.apiUrl}/models/` + id + '/', { headers: { 'Content-Type': 'application/json' }}).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(error);
+      })
+    );
   }
 
   deletePhotographer(id): Observable<any> {
-    return this.http.delete(`${environment.apiUrl}/photographers/${id}/`)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          return throwError(error);
-        })
-      );
+    return this.http.delete(`${environment.apiUrl}/photographers/` + id + '/', { headers: { 'Content-Type': 'application/json' }}).pipe(
+           catchError((error: HttpErrorResponse) => {
+             return throwError(error);
+           })
+    );
   }
 }

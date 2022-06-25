@@ -8,6 +8,7 @@ import {ConfirmationService, ConfirmEventType, Message, MessageService} from 'pr
 
 export class Survey {
   constructor(
+    public id: number,
     public first_name: string,
     public last_name: string,
     public birthday_year: number,
@@ -44,9 +45,8 @@ export class AccountComponent implements OnInit {
 
   user: User;
   userDetails: UserDatails;
-  survey: Survey[];
+  survey: Survey;
   msgs: Message[] = [];
-
 
   constructor(
     private router: Router,
@@ -64,12 +64,12 @@ export class AccountComponent implements OnInit {
     if (this.user.role === 'M') {
       this.profileService.findModelByEmail(this.user.email).subscribe(model => {
         this.userDetails = model;
-        this.survey = this.userDetails.survey;
+        this.survey = model.survey;
       });
     } else if (this.user.role === 'P') {
       this.profileService.findPhotographerByEmail(this.user.email).subscribe(photographer => {
         this.userDetails = photographer;
-        this.survey = this.userDetails.survey;
+        this.survey = photographer.survey;
       });
     }
   }
@@ -90,19 +90,33 @@ export class AccountComponent implements OnInit {
     }
   }
 
-  deleteUser(user: User) {
+  deleteUser(): void {
+
+    if (this.user.role === 'M') {
+      this.profileService.deleteModel(this.userDetails.id);
+    } else if (this.user.role  === 'P') {
+
+      this.profileService.deletePhotographer(this.userDetails.id).subscribe(user => {
+        this.msgs = [];
+        this.msgs.push({severity: 'info', summary: 'Success', detail: 'Deleted user'});
+        this.authService.logout();
+        this.router.navigate(['/login']);
+      }, _ => {
+        this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'Anulowane'}];
+      });;
+    }
     this.confirmationService.confirm({
       message: 'Czy na pewno chcesz usunąć konto?',
       header: 'Potwierdzenie',
       icon: 'pi pi-info-circle',
       accept: () => {
         this.msgs = [{severity: 'info', summary: 'Confirmed', detail: 'Potwierdzone'}];
-        if (user.role === 'M') {
+        if (this.user.role === 'M') {
           this.profileService.deleteModel(this.userDetails.id);
-        } else if (user.role  === 'W') {
+        } else if (this.user.role  === 'W') {
           this.profileService.deletePhotographer(this.userDetails.id);
         }
-        // TODO wylogowanie
+
       },
       reject: () => {
         this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'Anulowane'}];

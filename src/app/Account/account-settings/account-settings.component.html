@@ -8,7 +8,7 @@
             {{'Imię *:'}}
           </div>
           <div class="ui-grid-col-2">
-            <input pInputText type="text" pKeyFilter="alpha" formControlName="name" placeholder="{{'Jan'}}"/>
+            <input pInputText type="text" pKeyFilter="alpha" value="{{survey.first_name}}" formControlName="name" placeholder="{{'Jan'}}"/>
           </div>
           <div class="ui-grid-col-2">
             <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['name'].valid&&registerForm.controls['name'].dirty">
@@ -20,7 +20,7 @@
             {{'Nazwisko *:'}}
           </div>
           <div class="ui-grid-col-2">
-            <input pInputText type="text" pKeyFilter="alpha" formControlName="surname" placeholder="{{'Kowalski'}}"/>
+            <input pInputText type="text" pKeyFilter="alpha" value="{{survey.last_name}}" formControlName="surname" placeholder="{{'Kowalski'}}"/>
           </div>
           <div class="ui-grid-col-2">
             <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['surname'].valid&&registerForm.controls['surname'].dirty">
@@ -32,7 +32,7 @@
             {{'Rok urodzenia *:'}}
           </div>
           <div class="ui-grid-col-2">
-            <input pInputText type="text" pKeyFilter="int" formControlName="birthdayYear" placeholder="{{'1900'}}"/>
+            <input pInputText type="text" pKeyFilter="int" value="{{survey.birthday_year}}" formControlName="birthdayYear" placeholder="{{'1900'}}"/>
           </div>
           <div class="ui-grid-col-2">
             <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['birthdayYear'].valid&&registerForm.controls['birthdayYear'].dirty">
@@ -58,7 +58,7 @@
             {{'Miasto *:'}}
           </div>
           <div class="ui-grid-col-2">
-            <input pInputText type="text" pKeyFilter="alpha" formControlName="city" placeholder="{{'Warszawa'}}"/>
+            <input pInputText type="text" pKeyFilter="alpha" value="{{survey.city}}" formControlName="city" placeholder="{{'Warszawa'}}"/>
           </div>
           <div class="ui-grid-col-2">
             <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['city'].valid&&registerForm.controls['surname'].dirty">
@@ -70,7 +70,7 @@
             {{'Numer telefonu *:'}}
           </div>
           <div class="ui-grid-col-2">
-            <input pInputText type="text" pKeyFilter="int" formControlName="phoneNumber" placeholder="{{'999888777'}}"/>
+            <input pInputText type="text" pKeyFilter="int" value="{{survey.phone_number}}" formControlName="phoneNumber" placeholder="{{'999888777'}}"/>
           </div>
           <div class="ui-grid-col-2">
             <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!registerForm.controls['phoneNumber'].valid&&registerForm.controls['phoneNumber'].dirty">
