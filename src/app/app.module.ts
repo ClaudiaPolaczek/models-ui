@@ -48,6 +48,17 @@ import { NotificationsComponent } from './Account/notifications/notifications.co
 import { InvitationsComponent } from './Account/invitations/invitations.component';
 import { CalendarComponent } from './Account/calendar/calendar.component';
 import {ErrorInterceptor} from './error.interceptor';
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import {TableModule} from 'primeng/table';
+import { NewPortfolioComponent } from './Account/portfolio-new/new-portfolio.component';
+import { PortfolioEditComponent } from './Account/portfolio-edit/portfolio-edit.component';
+import { PortfoliosComponent } from './portfolios/portfolios.component';
+import { AccountPortfoliosComponent } from './Account/account-portfolios/account-portfolios.component';
+import {DialogModule} from 'primeng/dialog';
+import {FileUploadModule} from 'primeng/fileupload';
+import {CarouselModule} from 'primeng/carousel';
+//import {RatingModule} from 'primeng/rating';
+import {RatingModule} from 'ng-starrating';
 
 @NgModule({
   declarations: [
@@ -76,31 +87,42 @@ import {ErrorInterceptor} from './error.interceptor';
     NotificationsComponent,
     InvitationsComponent,
     CalendarComponent,
+    NewPortfolioComponent,
+    PortfolioEditComponent,
+    PortfoliosComponent,
+    AccountPortfoliosComponent,
   ],
-  imports: [
-    HttpClientModule,
-    AppRoutingModule,
-    BrowserModule,
-    RouterModule,
-    LoggerModule.forRoot({level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.OFF}),
-    MenubarModule,
-    InputTextModule,
-    ButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CardModule,
-    PasswordModule,
-    BrowserAnimationsModule,
-    RadioButtonModule,
-    PanelModule,
-    MessagesModule,
-    KeyFilterModule,
-    MessageModule,
-    CommonModule,
-    DropdownModule,
-    CheckboxModule,
-    ConfirmDialogModule
-  ],
+    imports: [
+        HttpClientModule,
+        AppRoutingModule,
+        BrowserModule,
+        RouterModule,
+        LoggerModule.forRoot({level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.OFF}),
+        MenubarModule,
+        InputTextModule,
+        ButtonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CardModule,
+        PasswordModule,
+        BrowserAnimationsModule,
+        RadioButtonModule,
+        PanelModule,
+        MessagesModule,
+        KeyFilterModule,
+        MessageModule,
+        CommonModule,
+        DropdownModule,
+        CheckboxModule,
+        ConfirmDialogModule,
+        ConfirmPopupModule,
+        TableModule,
+        DialogModule,
+        FileUploadModule,
+        CarouselModule,
+        RatingModule,
+        RatingModule
+    ],
   providers: [PrimeNGConfig, FilterService,
     { provide: HTTP_INTERCEPTORS, useClass: BearerAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

@@ -91,20 +91,6 @@ export class AccountComponent implements OnInit {
   }
 
   deleteUser(): void {
-
-    if (this.user.role === 'M') {
-      this.profileService.deleteModel(this.userDetails.id);
-    } else if (this.user.role  === 'P') {
-
-      this.profileService.deletePhotographer(this.userDetails.id).subscribe(user => {
-        this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Success', detail: 'Deleted user'});
-        this.authService.logout();
-        this.router.navigate(['/login']);
-      }, _ => {
-        this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'Anulowane'}];
-      });;
-    }
     this.confirmationService.confirm({
       message: 'Czy na pewno chcesz usunąć konto?',
       header: 'Potwierdzenie',
@@ -112,11 +98,26 @@ export class AccountComponent implements OnInit {
       accept: () => {
         this.msgs = [{severity: 'info', summary: 'Confirmed', detail: 'Potwierdzone'}];
         if (this.user.role === 'M') {
-          this.profileService.deleteModel(this.userDetails.id);
-        } else if (this.user.role  === 'W') {
-          this.profileService.deletePhotographer(this.userDetails.id);
+          this.profileService.deleteModel(this.userDetails.id).subscribe(user => {
+            this.msgs = [];
+            this.msgs.push({severity: 'info', summary: 'Success', detail: 'Deleted user'});
+            this.authService.logout();
+            window.location.reload();
+            this.router.navigate(['/login']);
+          }, _ => {
+            this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'Anulowane'}];
+          });
+        } else if (this.user.role  === 'P') {
+          this.profileService.deletePhotographer(this.userDetails.id).subscribe(user => {
+            this.msgs = [];
+            this.msgs.push({severity: 'info', summary: 'Success', detail: 'Deleted user'});
+            this.authService.logout();
+            window.location.reload();
+            this.router.navigate(['/login']);
+          }, _ => {
+            this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'Anulowane'}];
+          });
         }
-
       },
       reject: () => {
         this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'Anulowane'}];

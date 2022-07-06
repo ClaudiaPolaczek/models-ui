@@ -23,16 +23,24 @@ export class PortfolioService {
     return this.http.get(`${environment.apiUrl}/portfolios/user/`, {params: {email: userEmail}});
   }
 
-  addPortfolio(data): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/portfolios/`, data, this.httpOptions).pipe(
+  addPortfolio(idUser, portolioName, portolioDescription): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/portfolios/`, {
+      user: idUser,
+      name: portolioName,
+      description: portolioDescription,
+      main_photo_url: ''
+    }, this.httpOptions).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(error);
       })
     );
   }
 
-  editPortfolio(idPortfolio,  data): Observable<any> {
-    return this.http.patch(`${environment.apiUrl}/portfolios/${idPortfolio}/`, data, this.httpOptions).pipe(
+  editPortfolio(idPortfolio,  portfolioName, portfolioDescription): Observable<any> {
+    return this.http.patch(`${environment.apiUrl}/portfolios/${idPortfolio}/`, {
+      name: portfolioName,
+      description: portfolioDescription
+    }, this.httpOptions).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(error);
       })
@@ -48,10 +56,8 @@ export class PortfolioService {
     );
   }
 
-  delete(id, data): Observable<any> {
-    console.log('data', data);
-    return this.http.delete(`${environment.apiUrl}/portfolios/${id}/`, data)
-      .pipe(
+  deletePortfolioById(id): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/portfolios/` + id + '/', { headers: { 'Content-Type': 'application/json' }}).pipe(
         catchError((error: HttpErrorResponse) => {
           return throwError(error);
         })
@@ -67,7 +73,9 @@ export class PortfolioService {
   }
 
   addImage(data): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/images/`, data, this.httpOptions).pipe(
+    return this.http.post(`${environment.apiUrl}/images/`, {data} ,
+      { headers: { 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }}
+    ).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(error);
       })

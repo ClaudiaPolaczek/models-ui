@@ -1,0 +1,19 @@
+<p-messages [(value)]="msgs" [enableService]="false"></p-messages>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+<div class="surface-card p-4 shadow-2 border-round">
+  <p-card *ngFor="let portfolio of portfolios" [style]="{width: '360px'}">
+    <h3 style="margin-top: 0px">{{portfolio.name}}</h3>
+    <img src="{{portfolio.mainPhotoUrl}}" width="100"/>
+    <p><strong>Nazwa: </strong>{{portfolio.name}}</p>
+    <p><strong>Opis: </strong>{{portfolio.description}}</p>
+    <p><strong>Data dodania: </strong>{{getDate(portfolio.added_date)}}</p>
+    <div class="col-12" class="buttons">
+      <ng-template pTemplate="footer">
+          <a [routerLink]="['/edit/portfolio', portfolio.id]">
+            <p-button label="Edytuj portfolio" icon="pi pi-pencil" class="button" >
+        </p-button></a>
+        <p-button label="Usuń portfolio" icon="pi pi-times" class="button" (click)="deletePortfolio(portfolio);"></p-button>
+      </ng-template>
+    </div>
+  </p-card>
+</div>

@@ -81,15 +81,14 @@ export class AppComponent implements OnInit {
           {
             label: 'Portfolio',
             icon: 'pi pi-fw pi-camera',
-            routerLink: 'portfolio',
             items: [
               {
                 label: 'Albumy',
-                routerLink: 'albums'
+                routerLink: '/user/portfolio'
               },
               {
                 label: 'Nowy album',
-                routerLink: 'newalbum'
+                routerLink: '/user/new/portfolio'
               },
 
             ]
@@ -104,7 +103,17 @@ export class AppComponent implements OnInit {
       {
         label: 'Profile',
         icon: 'pi pi-fw pi-users',
-        routerLink: 'profiles'
+        items: [
+          {
+            label: 'Model',
+            routerLink: '/models'
+          },
+          {
+            label: 'Fotograf',
+            routerLink: '/photographers'
+          },
+
+        ]
       },
       {
         label: 'Panel administratora',

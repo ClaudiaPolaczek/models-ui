@@ -31,7 +31,6 @@ export class NotificationService {
     return this.http.get(`${environment.apiUrl}/notifications/n/`, {params: {email: userEmail}});
   }
 
-
   addNotification(data): Observable<any> {
     return this.http.post(`${environment.apiUrl}/notifications/`, data, this.httpOptions).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -42,7 +41,7 @@ export class NotificationService {
 
   readNotification(idNotification): Observable<any> {
     return this.http.patch(`${environment.apiUrl}/notifications/read/`, {}, {
-      headers: { 'Content-Type': 'application/json' }, params: {pk: idNotification}}).pipe(
+      headers: { 'Content-Type': 'application/json' }, params: {id: idNotification}}).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(error);
       })

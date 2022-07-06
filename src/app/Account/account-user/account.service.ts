@@ -36,52 +36,21 @@ export class AccountService {
     return this.http.get(`${environment.apiUrl}/comments/avg/`);
   }
 
-  addComment(data): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/comments/`, data, this.httpOptions).pipe(
+  addComment(rating, rated, ratingVal, ratingContent): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/comments/`, {
+      rating_user: rating,
+      rated_user: rated,
+      rating: ratingVal,
+      content: ratingContent
+    }, this.httpOptions).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(error);
       })
     );
   }
 
-  deleteComment(id, data): Observable<any> {
-    console.log('data', data);
-    return this.http.delete(`${environment.apiUrl}/comments/${id}/`, data)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          return throwError(error);
-        })
-      );
-  }
-
-  findNotificationById(id): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/notifications/${id}`);
-  }
-
-  getNotificationsByUser(userEmail): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/notifications/user/`, {params: {email: userEmail}});
-  }
-
-  readNotification(idNotification): Observable<any> {
-    return this.http.patch(`${environment.apiUrl}/notifications/read/`, null, {
-      headers: { 'Content-Type': 'application/json' }, params: {id: idNotification}}).pipe(
-      catchError((error: HttpErrorResponse) => {
-        return throwError(error);
-      })
-    );
-  }
-
-  addNotification(data): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/notifications/`, data, this.httpOptions).pipe(
-      catchError((error: HttpErrorResponse) => {
-        return throwError(error);
-      })
-    );
-  }
-
-  deleteNotification(id, data): Observable<any> {
-    console.log('data', data);
-    return this.http.delete(`${environment.apiUrl}/notifications/${id}/`, data)
+  deleteComment(id): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/comments/${id}/`)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return throwError(error);

@@ -1,1 +1,85 @@
-<p>photographer-profiles works!</p>
+<div class="card">
+  <p-table #dt2 [value]="photographersList" dataKey="id" styleClass="p-datatable-lg"
+           [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+           [paginator]="true"
+           [globalFilterFields]="['name','city','region', 'gender', 'birthday_year']">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Imię Nazwisko</th>
+        <th>Wiek</th>
+        <th>Miasto</th>
+        <th>Województwo</th>
+        <th>Płeć</th>
+      </tr>
+      <tr>
+        <th>
+          <p-columnFilter type="text" field="name"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter field="birthday_year" matchMode="equals" [showMenu]="false"
+                          [matchMode]="'custom-age'">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="ageOptions"  (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="city"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter field="region" matchMode="equals" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="regons" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter field="gender" matchMode="equals" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="genders" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-photographer>
+      <tr>
+        <td>
+          {{photographer.name}}
+        </td>
+        <td>
+          {{this.getAge(photographer.birthday_year)}}
+        </td>
+        <td>
+          {{photographer.city}}
+        </td>
+        <td>
+          {{photographer.region}}
+        </td>
+        <td>
+          {{photographer.gender}}
+        </td>
+        <td>
+          <button type="button" pButton pRipple icon="pi pi-pencil" (click)="this.selectPhotographer(photographer)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5">Brak fotografów</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

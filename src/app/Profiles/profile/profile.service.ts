@@ -16,7 +16,11 @@ export class ProfileService {
   constructor(private http: HttpClient) { }
 
   findModelById(id): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/models/${id}`);
+    return this.http.get(`${environment.apiUrl}/models/${id}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(error);
+      })
+    );
   }
 
   findPhotographerById(id): Observable<any> {
@@ -37,6 +41,10 @@ export class ProfileService {
 
   findPhotographerByEmail(userEmail): Observable<any> {
     return this.http.get(`${environment.apiUrl}/photographers/email/`, {params: {email: userEmail}});
+  }
+
+  findUserById(id): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/users/${id}`);
   }
 
   addPhotographer(data): Observable<any> {
@@ -89,7 +97,7 @@ export class ProfileService {
     );
   }
 
-  setModelAddInfo(idModel,  eyes, hair): Observable<any> {
+  setModelAddInfo(idModel, eyes, hair): Observable<any> {
     return this.http.post(`${environment.apiUrl}/models/add/`, {
       eyes_color: eyes,
       hair_color: hair

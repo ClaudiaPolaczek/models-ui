@@ -18,6 +18,12 @@ import {AdminCommentsComponent} from './Admin/admin-comments/admin-comments.comp
 import {InvitationsComponent} from './Account/invitations/invitations.component';
 import {CalendarComponent} from './Account/calendar/calendar.component';
 import {NotificationsComponent} from './Account/notifications/notifications.component';
+import {NewPortfolioComponent} from './Account/portfolio-new/new-portfolio.component';
+import {AccountPortfoliosComponent} from './Account/account-portfolios/account-portfolios.component';
+import {PortfolioEditComponent} from './Account/portfolio-edit/portfolio-edit.component';
+import {ModelProfileComponent} from './Profiles/model-profile/model-profile.component';
+import {ModelProfilesComponent} from './Profiles/model-profiles/model-profiles.component';
+import {PhotographerProfilesComponent} from './Profiles/photographer-profiles/photographer-profiles.component';
 
 
 const routes: Routes = [
@@ -35,6 +41,13 @@ const routes: Routes = [
   { path: 'user/instagram', pathMatch: 'full', component: AccountInstagramComponent },
   { path: 'user/password', pathMatch: 'full', component: AccountPasswordComponent },
   { path: 'user/settings', pathMatch: 'full', component: AccountSettingsComponent },
+  { path: 'user/new/portfolio', pathMatch: 'full', component: NewPortfolioComponent },
+  { path: 'user/portfolio', pathMatch: 'full', component: AccountPortfoliosComponent },
+  { path: 'edit/portfolio/:id', component: PortfolioEditComponent },
+  { path: 'models', pathMatch: 'full', component: ModelProfilesComponent },
+  { path: 'models/:id', component: ModelProfileComponent },
+  { path: 'photographers', pathMatch: 'full', component: PhotographerProfilesComponent },
+  { path: 'photographers/:id', component: PhotographerProfilesComponent },
   { path: 'admin/comments', pathMatch: 'full', component: AdminCommentsComponent },
   { path: 'admin/users', pathMatch: 'full', component: AdminComponent },
   { path: 'plan', pathMatch: 'full', component: CalendarComponent },

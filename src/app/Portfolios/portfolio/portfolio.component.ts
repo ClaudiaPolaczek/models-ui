@@ -19,7 +19,7 @@ export class PortfolioComponent implements OnInit {
                  private primengConfig: PrimeNGConfig,
                  private service: ProfileService,
                  private authService: AuthenticationService,
-                 private logger: NGXLogger,) { }
+                 private logger: NGXLogger) { }
 
   ngOnInit(): void {
     this.authService.currentUser.subscribe(user =>
@@ -29,3 +29,5 @@ export class PortfolioComponent implements OnInit {
 }
 
 }
+
+

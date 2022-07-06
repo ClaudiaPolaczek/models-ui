@@ -1,1 +1,82 @@
-<p>model-profile works!</p>
+<div class="col-12" class="buttons">
+  <div>{{this.user.email}}</div>
+  <span>Komentarze</span>
+  <p-button label="Dodaj komentarz" icon="pi pi-pencil" class="button" *ngIf="addCommentPossible(this.user.id)"
+            (click)="addNewComment()"></p-button>
+  <p-dialog header="Nowy komentarz" [(visible)]="newComment" [style]="{width: '50vw'}">
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 15px 0px">
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            {{'Ocena *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <star-rating value="{{this.rating}}" (rate)="onRate($event)" totalstars="5" checkedcolor="blue"
+                         uncheckedcolor="white" size="24px" readonly="false"></star-rating>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!commentForm.controls['rating'].valid&&commentForm.controls['rating'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Ocena jest wymagana'}}
+            </div>
+          </div>
+          <form [formGroup]="commentForm" >
+          <div class="ui-grid-col-2">
+            {{'Treść *:'}}
+          </div>
+          <div class="ui-grid-col-2">
+            <textarea pInputTextarea formControlName="description" ></textarea>
+          </div>
+          <div class="ui-grid-col-2">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!commentForm.controls['description'].valid&&commentForm.controls['description'].dirty">
+              <i class="fa fa-close"></i>
+              {{'Treść jest wymagana'}}
+            </div>
+          </div>
+          </form>
+        </div>
+      </div>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="addComment()" label="Dodaj" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-dialog>
+
+  <div class="card">
+    <p-table #dt2 [value]="comments" dataKey="id" styleClass="p-datatable-sm" responsiveLayout="scroll" [loading]="loading">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Nazwa użytkownika</th>
+          <th>Treść</th>
+          <th>Ocena</th>
+          <th>Data dodania</th>
+          <th>Usuwanie</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-comment>
+        <tr>
+          <td>
+            {{comment.rating_user_username}}
+          </td>
+          <td>
+            {{comment.content}}
+          </td>
+          <td>
+            <star-rating value="{{comment.rating}}"  totalstars="5" checkedcolor="blue" uncheckedcolor="white"
+                         size="24px" readonly="true"></star-rating>
+          </td>
+          <td>
+            {{comment.date}}
+          </td>
+          <td>
+            <button type="button" pButton pRipple icon="pi pi-pencil" *ngIf="deleteCommentPossible(comment.rated_user_id)"
+                    (click)="this.deleteComment(comment.id)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5">Brak komentarzy</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
