@@ -57,8 +57,8 @@ import { AccountPortfoliosComponent } from './Account/account-portfolios/account
 import {DialogModule} from 'primeng/dialog';
 import {FileUploadModule} from 'primeng/fileupload';
 import {CarouselModule} from 'primeng/carousel';
-//import {RatingModule} from 'primeng/rating';
 import {RatingModule} from 'ng-starrating';
+import {ImageModule} from 'primeng/image';
 
 @NgModule({
   declarations: [

@@ -5,11 +5,8 @@ import {ProfileService} from '../profile/profile.service';
 import {AuthenticationService} from '../../authentication.service';
 import {NGXLogger} from 'ngx-logger';
 import {AccountService} from '../../Account/account-user/account.service';
-import {Message, MessageService} from 'primeng/api';
-import {Portfolio} from '../../Account/account-portfolios/account-portfolios.component';
+import {ConfirmationService, Message, MessageService} from 'primeng/api';
 import {DialogService} from 'primeng/dynamicdialog';
-import {PortfolioService} from '../../Portfolios/portfolio/portfolio.service';
-import {Model} from '../model-profiles/model-profiles.component';
 import {User} from '../../user';
 import {Survey, UserDatails} from '../../Account/account-user/account.component';
 
@@ -28,22 +25,24 @@ export interface Comment {
   selector: 'app-model-profile',
   templateUrl: './model-profile.component.html',
   styleUrls: ['./model-profile.component.css'],
-  providers: [DialogService, MessageService],
+  providers: [DialogService, MessageService, ConfirmationService],
 })
 export class ModelProfileComponent implements OnInit {
 
   msgs: Message[] = [];
   modelId = 0;
   comments: Comment[];
+  userDetail: UserDatails;
+  survey: Survey;
   user: User;
   currentUser: User;
-  userDetails: UserDatails;
-  survey: Survey;
   commentForm: FormGroup;
   loading = true;
   newComment: boolean;
   rating = 3;
   email: string;
+  instagram: 'https://www.instagram.com/';
+  tabUrl = 'https://www.instagram.com/';
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
@@ -71,17 +70,20 @@ export class ModelProfileComponent implements OnInit {
       this.modelId = +this.route.snapshot.paramMap.get('id');
     });
     this.profileService.findModelById(this.modelId).subscribe(model => {
-      this.userDetails = model;
-      this.survey = model.survey;
       this.user = model.user;
+      this.userDetail = model;
+      this.survey = model.survey;
+      this.tabUrl = this.tabUrl.concat(this.survey.instagram_name);
       this.accountService.getCommentsByRatedUser(this.user.email).subscribe(comments => {
         this.comments = comments.map((comment) => {
-          return { id: comment.id, rating_user_id: comment.rating_user.id, rating_user_username: comment.rating_user.email,
+          return {
+            id: comment.id, rating_user_id: comment.rating_user.id, rating_user_username: comment.rating_user.email,
             rated_user_id: comment.rating_user.id, rating: comment.rating,
-            date: this.getDate(comment.added_date), content: comment.content};
+            date: this.getDate(comment.added_date), content: comment.content
+          };
         });
-        this.loading = false;
       });
+      this.loading = false;
     });
   }
 
@@ -93,6 +95,7 @@ export class ModelProfileComponent implements OnInit {
     }
   }
 
+
   addNewComment(): void {
     this.newComment = true;
   }
@@ -100,6 +103,7 @@ export class ModelProfileComponent implements OnInit {
   getDate(date): Date {
     return date.slice(0, 10);
   }
+
 
   addComment(): void {
     this.newComment = false;
@@ -130,6 +134,7 @@ export class ModelProfileComponent implements OnInit {
   deleteComment(id): void {
     this.accountService.deleteComment(id).subscribe(comments => {
       this.msgs = [];
+      window.location.reload();
       this.msgs.push({severity: 'info', summary: 'Success', detail: 'Komentarz usunięty'});
     }, _ => {
       this.msgs = [];
@@ -150,8 +155,8 @@ export class ModelProfileComponent implements OnInit {
     return  date.getFullYear() - year;
   }
 
-  goToInstagram(tabUrl): void {
-    window.open(tabUrl);
+  goToInstagram(): void {
+    window.open(this.tabUrl);
   }
 
   getRatingUser(id): string {
@@ -175,4 +180,13 @@ export class ModelProfileComponent implements OnInit {
       return true;
     }
   }
+
+  ifHasInstagram(): boolean {
+    if (this.survey.instagram_name !== '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }

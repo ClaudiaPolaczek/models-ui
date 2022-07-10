@@ -12,6 +12,7 @@ export interface Model {
      main?: string;
      name?: string;
      birthday_year?: number;
+      phone_number?: string;
      gender?: string;
      region?: string;
      city?: string;
@@ -47,7 +48,8 @@ export class ModelProfilesComponent implements OnInit {
       this.modelsList = models.map((model) => {
         return { id: model.id, email: model.user.email, main: model.user.main_photo_url,
           name: model.survey.first_name + ' ' + model.survey.last_name, birthday_year: model.survey.birthday_year,
-        gender: this.getGender(model.survey.gender), region: model.survey.region, city: model.survey.city,
+          phone_number: model.survey.phone_number, gender: this.getGender(model.survey.gender),
+          region: model.survey.region, city: model.survey.city,
           eyes_color: model.eyes_color, hair_color: model.hair_color};
       });
       this.loading = false;

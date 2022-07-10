@@ -1,5 +1,32 @@
 <div class="col-12" class="buttons">
-  <div>{{this.user.email}}</div>
+  <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
+  <p-confirmPopup></p-confirmPopup>
+  <!-- <div style="margin-bottom: 15px">
+         <el-image
+           style="width: 300px; height: 300px"
+           :src="user.user.mainPhotoUrl"
+           :fit="'contain'">
+         </el-image>
+       </div>-->
+  <div class="surface-card p-4 shadow-2 border-round">
+    <p-card [style]="{width: '360px'}" styleClass="p-card-shadow" class="example-card">
+      <p-image src="{{user.mainPhotoUrl}}" alt="Image" width="250" [preview]="true"></p-image>
+      <h3 style="margin-top: 0px">{{user.email}}</h3>
+      <p>{{survey.first_name}} {{survey.last_name}}</p>
+      <p>{{survey.city}} ({{survey.region}})</p>
+      <p>{{getAge(survey.birthday_year)}}, {{getGender(survey.gender)}}</p>
+      <p>Tel: {{survey.phone_number}}</p>
+      <div class="col-12" class="buttons">
+        <ng-template pTemplate="footer">
+          <p-button label="Zobacz portfolio" class="button" (click)="this.router.navigate(['/portfolios']);"></p-button>
+          <p-button label="Zaproś na sesję" class="button" (click)="this.router.navigate(['/photoshoot/'+this.user.id]);"></p-button>
+          <p-button *ngIf="ifHasInstagram();" icon="pi pi-instagram" (click)="goToInstagram();">
+            {{this.survey.instagram_name}}
+          </p-button>
+        </ng-template>
+      </div>
+    </p-card>
+  </div>
   <span>Komentarze</span>
   <p-button label="Dodaj komentarz" icon="pi pi-pencil" class="button" *ngIf="addCommentPossible(this.user.id)"
             (click)="addNewComment()"></p-button>
