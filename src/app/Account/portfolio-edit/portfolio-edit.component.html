@@ -4,7 +4,7 @@
     <img src="{{portfolio.mainPhotoUrl}}" width="100"/>
     <p><strong>Nazwa: </strong>{{portfolio.name}}</p>
     <p><strong>Opis: </strong>{{portfolio.description}}</p>
-    <p><strong>Data utworzenia: </strong>{{getDate(portfolio.added_date)}}</p>
+    <p><strong>Data utworzenia: </strong>{{getDate(portfolio.addedDate)}}</p>
     <div class="col-12" class="buttons">
         <p-button label="Edytuj dane" icon="pi pi-pencil" class="button" (click)="editPortfolio()"></p-button>
         <p-dialog header="Edycja albumu" [(visible)]="editDialog" [style]="{width: '50vw'}">

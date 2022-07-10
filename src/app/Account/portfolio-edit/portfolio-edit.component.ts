@@ -42,6 +42,7 @@ export class PortfolioEditComponent implements OnInit {
   editDialog: boolean;
   uploadedFiles: any[] = [];
   albumForm: FormGroup;
+  responsiveOptions: any;
 
   constructor(private router: Router,
               private route: ActivatedRoute,

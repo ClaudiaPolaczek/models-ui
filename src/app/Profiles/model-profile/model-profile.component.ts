@@ -46,7 +46,7 @@ export class ModelProfileComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private router: Router,
+              public router: Router,
               private accountService: AccountService,
               private profileService: ProfileService,
               private authService: AuthenticationService,
