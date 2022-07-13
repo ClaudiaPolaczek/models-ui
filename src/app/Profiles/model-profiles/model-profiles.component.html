@@ -1,4 +1,5 @@
 <div class="card">
+  <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
   <p-table #dt2 [value]="modelsList" dataKey="id" styleClass="p-datatable-lg"
            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
            [paginator]="true"
@@ -86,13 +87,12 @@
     <ng-template pTemplate="body" let-model>
       <tr>
         <td>
-          <img [src]="'assets/showcase/images/demo/product/' + model.main" width="100" class="shadow-4" />
-        </td>
+          <p-image src="{{model.main}}" alt="Image" width="100"></p-image>
         <td>
           {{model.name}}
         </td>
         <td>
-          {{this.getAge(model.birthday_year)}}
+          {{this.calculatorService.getAge(model.birthday_year)}}
         </td>
         <td>
           {{model.city}}

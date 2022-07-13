@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Message} from 'primeng/api';
+import {MenuItem, Message} from 'primeng/api';
 import {Router} from '@angular/router';
 import {ProfileService} from '../profile/profile.service';
 import {AuthenticationService} from '../../authentication.service';
 import {NGXLogger} from 'ngx-logger';
 import {FilterService} from 'primeng/api';
+import {CalculatorService} from '../../calculator.service';
 
 export interface Model {
      id?: number;
@@ -27,6 +28,8 @@ export interface Model {
 })
 export class ModelProfilesComponent implements OnInit {
 
+  items: MenuItem[];
+  home: MenuItem;
   msgs: Message[] = [];
   modelsList: Model[];
   genders: any[];
@@ -41,20 +44,20 @@ export class ModelProfilesComponent implements OnInit {
                   private profileService: ProfileService,
                   private authService: AuthenticationService,
                   private logger: NGXLogger,
-                  private filterService: FilterService) { }
+                  private filterService: FilterService,
+                  public calculatorService: CalculatorService) { }
 
   ngOnInit() {
     this.profileService.getAllModels().subscribe(models => {
       this.modelsList = models.map((model) => {
         return { id: model.id, email: model.user.email, main: model.user.main_photo_url,
           name: model.survey.first_name + ' ' + model.survey.last_name, birthday_year: model.survey.birthday_year,
-          phone_number: model.survey.phone_number, gender: this.getGender(model.survey.gender),
+          phone_number: model.survey.phone_number, gender: this.calculatorService.getGender(model.survey.gender),
           region: model.survey.region, city: model.survey.city,
           eyes_color: model.eyes_color, hair_color: model.hair_color};
       });
       this.loading = false;
     });
-
     const customFilterName = 'custom-age';
     this.filterService.register(
       customFilterName,
@@ -232,19 +235,11 @@ export class ModelProfilesComponent implements OnInit {
       value: '',
       label: '-'
     }];
-  }
 
-  getGender(gender: string) {
-    if (gender === 'M') {
-      return 'Mężczyzna';
-    } else if (gender === 'K') {
-      return 'Kobieta';
-    }
-  }
-
-  getAge(year): number {
-    const date = new Date();
-    return  date.getFullYear() - year;
+    this.items = [
+      {label: 'Profile'},
+    ];
+    this.home = {icon: 'pi pi-home', routerLink: '/'};
   }
 
   selectModel(model: Model): void {

@@ -4,7 +4,8 @@ import {Router} from '@angular/router';
 import {ProfileService} from '../../Profiles/profile/profile.service';
 import {AuthenticationService} from '../../authentication.service';
 import {NGXLogger} from 'ngx-logger';
-import {ConfirmationService, ConfirmEventType, Message, MessageService} from 'primeng/api';
+import {ConfirmationService, ConfirmEventType, MenuItem, Message, MessageService} from 'primeng/api';
+import {CalculatorService} from '../../calculator.service';
 
 export class Survey {
   constructor(
@@ -43,6 +44,8 @@ export class UserDatails {
 })
 export class AccountComponent implements OnInit {
 
+  items: MenuItem[];
+  home: MenuItem;
   user: User;
   userDetails: UserDatails;
   survey: Survey;
@@ -54,7 +57,8 @@ export class AccountComponent implements OnInit {
     private authService: AuthenticationService,
     private logger: NGXLogger,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public calculatorService: CalculatorService
   ) {}
 
   ngOnInit(): void {
@@ -71,22 +75,6 @@ export class AccountComponent implements OnInit {
         this.userDetails = photographer;
         this.survey = photographer.survey;
       });
-    }
-  }
-
-  getOccupation(role: string) {
-    if (role === 'M') {
-      return 'Modelka';
-    } else if (role === 'P') {
-      return 'Fotograf';
-    }
-  }
-
-  getGender(gender: string) {
-    if (gender === 'M') {
-      return 'Mężczyzna';
-    } else if (gender === 'K') {
-      return 'Kobieta';
     }
   }
 
@@ -123,5 +111,9 @@ export class AccountComponent implements OnInit {
         this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'Anulowane'}];
       }
     });
+    this.items = [
+      {label: 'Konto'},
+    ];
+    this.home = {icon: 'pi pi-home', routerLink: '/'};
   }
 }

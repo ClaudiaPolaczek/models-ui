@@ -26,9 +26,9 @@
     "ng-starrating": "^1.0.20",
     "ngx-logger": "^4.1.9",
     "primeicons": "^5.0.0",
-    "primeng": "^11.4.5",
+    "primeng": "^12.2.3",
     "rxjs": "~6.6.7",
-    "tslib": "^2.0.0",
+    "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

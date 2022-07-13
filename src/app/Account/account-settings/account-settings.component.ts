@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Message, SelectItem} from 'primeng/api';
+import {MenuItem, Message, SelectItem} from 'primeng/api';
 import {AuthenticationService} from '../../authentication.service';
 import {Router} from '@angular/router';
 import {User} from '../../user';
@@ -14,6 +14,8 @@ import {ProfileService} from '../../Profiles/profile/profile.service';
 })
 export class AccountSettingsComponent implements OnInit {
 
+  items: MenuItem[];
+  home: MenuItem;
   registerForm: FormGroup;
   spin = false;
   gender: SelectItem[];
@@ -119,6 +121,11 @@ export class AccountSettingsComponent implements OnInit {
         this.survey = photographer.survey;
       });
     }
+    this.items = [
+      {label: 'Konto'},
+      {label: 'Dane osobowe'},
+    ];
+    this.home = {icon: 'pi pi-home', routerLink: '/'};
   }
 
   save(): void {

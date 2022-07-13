@@ -1,4 +1,5 @@
 <div [style]="{alignContent: 'center'}">
+  <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
   <p-table [value]="notifications" responsiveLayout="scroll">
     <ng-template pTemplate="header">
       <tr>
@@ -10,7 +11,7 @@
     <ng-template pTemplate="body" let-notification>
       <tr>
         <td>{{notification.content}}</td>
-        <td>{{getDate(notification.added_date)}}</td>
+        <td>{{this.calculatorService.getDate(notification.added_date)}}</td>
         <td>
           <button *ngIf="ifNotificationIsAlreadyRead(notification.read_value)" label="Oznacz jako przeczytane" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="readNotification(notification)"></button></td>
       </tr>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Message} from 'primeng/api';
+import {MenuItem, Message} from 'primeng/api';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../authentication.service';
 import {PortfolioService} from '../../Portfolios/portfolio/portfolio.service';
@@ -14,6 +14,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 })
 export class NewPortfolioComponent implements OnInit {
 
+  items: MenuItem[];
+  home: MenuItem;
   albumForm: FormGroup;
   msgs: Message[] = [];
   user: User;
@@ -38,6 +40,11 @@ export class NewPortfolioComponent implements OnInit {
     this.authService.currentUser.subscribe(user =>
       this.user = user
     );
+    this.items = [
+      {label: 'Konto'},
+      {label: 'Nowy album'},
+    ];
+    this.home = {icon: 'pi pi-home', routerLink: '/'};
   }
 
   save(): void {

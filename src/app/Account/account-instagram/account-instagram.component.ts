@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Message} from 'primeng/api';
+import {MenuItem, Message} from 'primeng/api';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../authentication.service';
 import {ProfileService} from '../../Profiles/profile/profile.service';
@@ -14,6 +14,8 @@ import {Survey, UserDatails} from '../account-user/account.component';
 })
 export class AccountInstagramComponent implements OnInit {
 
+  items: MenuItem[];
+  home: MenuItem;
   instagramForm: FormGroup;
   msgs: Message[] = [];
   spin = false;
@@ -36,6 +38,11 @@ export class AccountInstagramComponent implements OnInit {
     this.authService.currentUser.subscribe(user =>
       this.user = user
     );
+    this.items = [
+      {label:'Konto'},
+      {label:'Instagram'},
+    ];
+    this.home = {icon: 'pi pi-home', routerLink: '/'};
   }
 
   save(): void {

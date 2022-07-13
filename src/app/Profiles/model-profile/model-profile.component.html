@@ -1,19 +1,14 @@
 <div class="col-12" class="buttons">
+  <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
   <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
   <p-confirmPopup></p-confirmPopup>
-  <!-- <div style="margin-bottom: 15px">
-         <el-image
-           style="width: 300px; height: 300px"
-           :src="user.user.mainPhotoUrl"
-           :fit="'contain'">
-         </el-image>
-       </div>-->
   <div class="surface-card p-4 shadow-2 border-round">
     <p-card [style]="{width: '360px'}" styleClass="p-card-shadow" class="example-card">
+      <p-image src="{{user.main_photo_url}}" alt="Image" width="250"></p-image>
       <h3 style="margin-top: 0px">{{user.email}}</h3>
       <p>{{survey.first_name}} {{survey.last_name}}</p>
       <p>{{survey.city}} ({{survey.region}})</p>
-      <p>{{getAge(survey.birthday_year)}}, {{getGender(survey.gender)}}</p>
+      <p>{{this.calculatorService.getAge(survey.birthday_year)}}, {{this.calculatorService.getGender(survey.gender)}}</p>
       <p>Tel: {{survey.phone_number}}</p>
       <div class="col-12" class="buttons">
         <ng-template pTemplate="footer">

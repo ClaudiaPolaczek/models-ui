@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../authentication.service';
 import {PortfolioService} from '../../Portfolios/portfolio/portfolio.service';
-import {ConfirmationService, Message, MessageService} from 'primeng/api';
+import {ConfirmationService, MenuItem, Message, MessageService} from 'primeng/api';
 import {User} from '../../user';
 import {Portfolio} from '../account-portfolios/account-portfolios.component';
 import {DialogService} from 'primeng/dynamicdialog';
@@ -12,6 +12,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
 import {SafeUrl} from '@angular/platform-browser';
 import {DomSanitizer} from '@angular/platform-browser';
+import {CalculatorService} from '../../calculator.service';
 
 export class Image {
   constructor(
@@ -31,6 +32,8 @@ export class Image {
 })
 export class PortfolioEditComponent implements OnInit {
 
+  items: MenuItem[];
+  home: MenuItem;
   portfolioId: number;
   msgs: Message[] = [];
   imageUrl?: SafeUrl;
@@ -51,7 +54,8 @@ export class PortfolioEditComponent implements OnInit {
               private portfolioService: PortfolioService,
               private messageService: MessageService,
               private dialogService: DialogService,
-              private sanitizer: DomSanitizer
+              private sanitizer: DomSanitizer,
+              public calculatorService: CalculatorService
   ) {
     this.albumForm = formBuilder.group({
       name: formBuilder.control('', [
@@ -74,10 +78,12 @@ export class PortfolioEditComponent implements OnInit {
         this.images = images;
       });
     });
-  }
-
-  getDate(date): Date {
-    return date.slice(0, 10);
+    this.items = [
+      {label: 'Konto'},
+      {label: 'Albumy'},
+      {label: this.portfolio.name},
+    ];
+    this.home = {icon: 'pi pi-home', routerLink: '/'};
   }
 
   editPortfolio(): void {

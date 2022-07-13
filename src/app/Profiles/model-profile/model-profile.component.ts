@@ -5,10 +5,11 @@ import {ProfileService} from '../profile/profile.service';
 import {AuthenticationService} from '../../authentication.service';
 import {NGXLogger} from 'ngx-logger';
 import {AccountService} from '../../Account/account-user/account.service';
-import {ConfirmationService, Message, MessageService} from 'primeng/api';
+import {ConfirmationService, MenuItem, Message, MessageService} from 'primeng/api';
 import {DialogService} from 'primeng/dynamicdialog';
 import {User} from '../../user';
 import {Survey, UserDatails} from '../../Account/account-user/account.component';
+import {CalculatorService} from '../../calculator.service';
 
 
 export interface Comment {
@@ -29,6 +30,8 @@ export interface Comment {
 })
 export class ModelProfileComponent implements OnInit {
 
+  items: MenuItem[];
+  home: MenuItem;
   msgs: Message[] = [];
   modelId = 0;
   comments: Comment[];
@@ -41,7 +44,6 @@ export class ModelProfileComponent implements OnInit {
   newComment: boolean;
   rating = 3;
   email: string;
-  instagram: 'https://www.instagram.com/';
   tabUrl = 'https://www.instagram.com/';
 
   constructor(private formBuilder: FormBuilder,
@@ -50,7 +52,8 @@ export class ModelProfileComponent implements OnInit {
               private accountService: AccountService,
               private profileService: ProfileService,
               private authService: AuthenticationService,
-              private logger: NGXLogger) {
+              private logger: NGXLogger,
+              public calculatorService: CalculatorService) {
     this.commentForm = formBuilder.group({
       description: formBuilder.control('', [
         Validators.required,
@@ -71,6 +74,7 @@ export class ModelProfileComponent implements OnInit {
     });
     this.profileService.findModelById(this.modelId).subscribe(model => {
       this.user = model.user;
+      console.log(this.user);
       this.userDetail = model;
       this.survey = model.survey;
       this.tabUrl = this.tabUrl.concat(this.survey.instagram_name);
@@ -79,31 +83,22 @@ export class ModelProfileComponent implements OnInit {
           return {
             id: comment.id, rating_user_id: comment.rating_user.id, rating_user_username: comment.rating_user.email,
             rated_user_id: comment.rating_user.id, rating: comment.rating,
-            date: this.getDate(comment.added_date), content: comment.content
+            date: this.calculatorService.getDate(comment.added_date), content: comment.content
           };
         });
       });
       this.loading = false;
     });
+    this.items = [
+      {label: 'Profile'},
+      {label: this.survey.first_name + ' ' + this.survey.last_name},
+    ];
+    this.home = {icon: 'pi pi-home', routerLink: '/'};
   }
-
-  getGender(gender: string) {
-    if (gender === 'M') {
-      return 'Mężczyzna';
-    } else if (gender === 'K') {
-      return 'Kobieta';
-    }
-  }
-
 
   addNewComment(): void {
     this.newComment = true;
   }
-
-  getDate(date): Date {
-    return date.slice(0, 10);
-  }
-
 
   addComment(): void {
     this.newComment = false;
@@ -150,15 +145,6 @@ export class ModelProfileComponent implements OnInit {
     }
   }
 
-  getAge(year): number {
-    const date = new Date();
-    return  date.getFullYear() - year;
-  }
-
-  goToInstagram(): void {
-    window.open(this.tabUrl);
-  }
-
   getRatingUser(id): string {
     this.profileService.findUserById(id).subscribe(user => {
       return user.username;
@@ -187,6 +173,10 @@ export class ModelProfileComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  goToInstagram(): void {
+    window.open(this.tabUrl);
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../authentication.service';
-import {Message} from 'primeng/api';
+import {MenuItem, Message} from 'primeng/api';
 
 @Component({
   selector: 'app-account-password',
@@ -11,6 +11,8 @@ import {Message} from 'primeng/api';
 })
 export class AccountPasswordComponent implements OnInit {
 
+  items: MenuItem[];
+  home: MenuItem;
   passwordForm: FormGroup;
   msgs: Message[] = [];
   spin = false;
@@ -48,6 +50,11 @@ export class AccountPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.items = [
+      {label: 'Konto'},
+      {label: 'Zmiana hasła'},
+    ];
+    this.home = {icon: 'pi pi-home', routerLink: '/'};
   }
 
   save(): void {

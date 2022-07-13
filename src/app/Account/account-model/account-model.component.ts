@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Message, SelectItem} from 'primeng/api';
+import {MenuItem, Message, SelectItem} from 'primeng/api';
 import {User} from '../../user';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../authentication.service';
@@ -14,6 +14,8 @@ import {UserDatails} from '../account-user/account.component';
 })
 export class AccountModelComponent implements OnInit {
 
+  items: MenuItem[];
+  home: MenuItem;
   modelForm: FormGroup;
   spin = false;
   hairColor: SelectItem[];
@@ -89,6 +91,12 @@ export class AccountModelComponent implements OnInit {
     this.profileService.findModelByEmail(this.user.email).subscribe(model => {
       this.userDetails = model;
     });
+
+    this.items = [
+      {label:'Konto'},
+      {label:'Dane modelki'},
+    ];
+    this.home = {icon: 'pi pi-home', routerLink: '/'};
   }
 
   save(): void {

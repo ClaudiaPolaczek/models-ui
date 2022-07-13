@@ -5,13 +5,16 @@ import {AuthenticationService} from '../../authentication.service';
 import {NGXLogger} from 'ngx-logger';
 import {Table} from 'primeng/table';
 import {User} from '../../user';
-import {FilterService, Message} from 'primeng/api';
+import {FilterService, MenuItem, Message} from 'primeng/api';
 import {Model} from '../model-profiles/model-profiles.component';
+import {CalculatorService} from '../../calculator.service';
 
 export interface Photographer {
   id?: number;
+  main?: string;
   name?: string;
   birthday_year?: number;
+  phone_number?: string
   gender?: string;
   region?: string;
   city?: string;
@@ -24,6 +27,8 @@ export interface Photographer {
 })
 export class PhotographerProfilesComponent implements OnInit {
 
+  items: MenuItem[];
+  home: MenuItem;
   msgs: Message[] = [];
   photographersList: Photographer[];
   genders: any[];
@@ -38,14 +43,17 @@ export class PhotographerProfilesComponent implements OnInit {
               private profileService: ProfileService,
               private authService: AuthenticationService,
               private logger: NGXLogger,
-              private filterService: FilterService) { }
+              private filterService: FilterService,
+              public calculatorService: CalculatorService) { }
 
   ngOnInit() {
     this.profileService.getAllPhotographers().subscribe(photographers => {
       this.photographersList = photographers.map((photographer) => {
-        return { id: photographer.id, name: photographer.survey.first_name + ' ' + photographer.survey.last_name,
-          birthday_year: photographer.survey.birthday_year,
-          gender: this.getGender(photographer.survey.gender), region: photographer.survey.region, city: photographer.survey.city};
+        return { id: photographer.id, main: photographer.user.main_photo_url,
+          name: photographer.survey.first_name + ' ' + photographer.survey.last_name,
+          birthday_year: photographer.survey.birthday_year, phone_number: photographer.survey.phone_number,
+          gender: this.calculatorService.getGender(photographer.survey.gender),
+          region: photographer.survey.region, city: photographer.survey.city};
       });
       this.loading = false;
     });
@@ -181,19 +189,12 @@ export class PhotographerProfilesComponent implements OnInit {
       value: '',
       label: '-'
     }];
-  }
 
-  getGender(gender: string) {
-    if (gender === 'M') {
-      return 'Mężczyzna';
-    } else if (gender === 'K') {
-      return 'Kobieta';
-    }
-  }
+    this.items = [
+      {label: 'Profile'},
+    ];
+    this.home = {icon: 'pi pi-home', routerLink: '/'};
 
-  getAge(year): number {
-    const date = new Date();
-    return  date.getFullYear() - year;
   }
 
   selectPhotographer(photographer: Photographer): void {

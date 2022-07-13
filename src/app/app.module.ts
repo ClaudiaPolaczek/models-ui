@@ -58,7 +58,9 @@ import {DialogModule} from 'primeng/dialog';
 import {FileUploadModule} from 'primeng/fileupload';
 import {CarouselModule} from 'primeng/carousel';
 import {RatingModule} from 'ng-starrating';
-//import {ImageModule} from 'primeng/image';
+import {ImageModule} from 'primeng/image';
+import {DataViewModule} from 'primeng/dataview';
+import {BreadcrumbModule} from 'primeng/breadcrumb';
 
 @NgModule({
   declarations: [
@@ -92,37 +94,40 @@ import {RatingModule} from 'ng-starrating';
     PortfoliosComponent,
     AccountPortfoliosComponent,
   ],
-    imports: [
-        HttpClientModule,
-        AppRoutingModule,
-        BrowserModule,
-        RouterModule,
-        LoggerModule.forRoot({level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.OFF}),
-        MenubarModule,
-        InputTextModule,
-        ButtonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CardModule,
-        PasswordModule,
-        BrowserAnimationsModule,
-        RadioButtonModule,
-        PanelModule,
-        MessagesModule,
-        KeyFilterModule,
-        MessageModule,
-        CommonModule,
-        DropdownModule,
-        CheckboxModule,
-        ConfirmDialogModule,
-        ConfirmPopupModule,
-        TableModule,
-        DialogModule,
-        FileUploadModule,
-        CarouselModule,
-        RatingModule,
-        RatingModule
-    ],
+  imports: [
+    HttpClientModule,
+    AppRoutingModule,
+    BrowserModule,
+    RouterModule,
+    LoggerModule.forRoot({level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.OFF}),
+    MenubarModule,
+    InputTextModule,
+    ButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CardModule,
+    PasswordModule,
+    BrowserAnimationsModule,
+    RadioButtonModule,
+    PanelModule,
+    MessagesModule,
+    KeyFilterModule,
+    MessageModule,
+    CommonModule,
+    DropdownModule,
+    CheckboxModule,
+    ConfirmDialogModule,
+    ConfirmPopupModule,
+    TableModule,
+    DialogModule,
+    FileUploadModule,
+    CarouselModule,
+    RatingModule,
+    RatingModule,
+    ImageModule,
+    DataViewModule,
+    BreadcrumbModule
+  ],
   providers: [PrimeNGConfig, FilterService,
     { provide: HTTP_INTERCEPTORS, useClass: BearerAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

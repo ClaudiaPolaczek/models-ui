@@ -1,5 +1,6 @@
 <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
 <div [style]="{alignContent: 'center'}">
+  <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
   <form [formGroup]="registerForm" (ngSubmit)="save()">
     <p-card [style]="{width: '60%', alignContent: 'center'}" styleClass="p-card-shadow" class="example-card">
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 15px 0px">

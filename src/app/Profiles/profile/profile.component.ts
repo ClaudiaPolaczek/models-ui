@@ -5,6 +5,7 @@ import {User} from '../../user';
 import {AuthenticationService} from '../../authentication.service';
 import {ProfileService} from './profile.service';
 import {Router} from '@angular/router';
+import {CalculatorService} from '../../calculator.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,6 +22,7 @@ export class ProfileComponent implements OnInit {
     private service: ProfileService,
     private authService: AuthenticationService,
     private logger: NGXLogger,
+    private calculatorService: CalculatorService
   ) {}
 
   ngOnInit(): void {
