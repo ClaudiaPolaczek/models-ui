@@ -65,6 +65,7 @@ export class AccountComponent implements OnInit {
     this.authService.currentUser.subscribe(user =>
       this.user = user
     );
+    console.log(this.user);
     if (this.user.role === 'M') {
       this.profileService.findModelByEmail(this.user.email).subscribe(model => {
         this.userDetails = model;
@@ -76,6 +77,10 @@ export class AccountComponent implements OnInit {
         this.survey = photographer.survey;
       });
     }
+    this.items = [
+      {label: 'Konto'},
+    ];
+    this.home = {icon: 'pi pi-home', routerLink: '/'};
   }
 
   deleteUser(): void {

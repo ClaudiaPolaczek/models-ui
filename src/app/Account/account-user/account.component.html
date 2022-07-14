@@ -4,17 +4,24 @@
   <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
   <p-card header="Dane osobowe"[style]="{width: '360px'}" styleClass="p-card-shadow" class="example-card">
     <h3 style="margin-top: 0px">{{user.email}}</h3>
-    <p><strong>Imię: </strong>{{survey.first_name }}</p>
-    <p><strong>Nazwisko: </strong>{{survey.last_name}}</p>
-    <p><strong>Rok urodzenia: </strong>{{survey.birthday_year}}</p>
-    <p><strong>Płeć: </strong>{{this.calculatorService.getGender(survey.gender)}}</p>
-    <p><strong>Województwo: </strong>{{survey.region}}</p>
-    <p><strong>Miasto: </strong>{{survey.city}}</p>
-    <p><strong>Numer telefonu: </strong>{{survey.phone_number}}</p>
+    <div class="p-d-flex">
+      <div class="p-mr-2"><div class="col-12" class="buttons">
+        <p-image src="{{user.main_photo_url}}" width="250"></p-image>
+      </div></div>
+      <div class="p-mr-2">
+        <p><strong>Imię: </strong>{{survey.first_name }}</p>
+        <p><strong>Nazwisko: </strong>{{survey.last_name}}</p>
+        <p><strong>Rok urodzenia: </strong>{{survey.birthday_year}}</p>
+        <p><strong>Płeć: </strong>{{this.calculatorService.getGender(survey.gender)}}</p>
+        <p><strong>Województwo: </strong>{{survey.region}}</p>
+        <p><strong>Miasto: </strong>{{survey.city}}</p>
+        <p><strong>Numer telefonu: </strong>{{survey.phone_number}}</p>
         <p><strong>Rola: </strong>{{this.calculatorService.getOccupation(user.role)}}</p>
-    <div class="col-12" class="buttons">
-       <p-image src="{{user.main_photo_url}}" alt="Image" width="250"></p-image>
-     </div>-->
+      </div>
+      <div>Item 3</div>
+    </div>
+
+
     <div class="col-12" class="buttons">
       <ng-template pTemplate="footer">
         <p-button label="Usuń profil" icon="pi pi-save" class="button" (click)="deleteUser();"></p-button>
@@ -27,3 +34,4 @@
     </div>
   </p-card>
 </div>
+

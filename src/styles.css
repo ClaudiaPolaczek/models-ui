@@ -1,3 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+p-card .p-card-title {
+  font-size: 1.5rem;
+  font-weight: 1000;
+  margin-bottom: 0.5rem;
+  align-content: center;
+  justify-content: center;
+  display: flex;
+}

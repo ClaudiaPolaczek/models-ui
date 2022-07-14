@@ -25,6 +25,7 @@
     "@ngx-translate/http-loader": "^5.0.0",
     "ng-starrating": "^1.0.20",
     "ngx-logger": "^4.1.9",
+    "primeflex": "^3.2.1",
     "primeicons": "^5.0.0",
     "primeng": "^12.2.3",
     "rxjs": "~6.6.7",

@@ -61,6 +61,7 @@ import {RatingModule} from 'ng-starrating';
 import {ImageModule} from 'primeng/image';
 import {DataViewModule} from 'primeng/dataview';
 import {BreadcrumbModule} from 'primeng/breadcrumb';
+import {GalleriaModule} from 'primeng/galleria';
 
 @NgModule({
   declarations: [
@@ -126,7 +127,8 @@ import {BreadcrumbModule} from 'primeng/breadcrumb';
     RatingModule,
     ImageModule,
     DataViewModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    GalleriaModule
   ],
   providers: [PrimeNGConfig, FilterService,
     { provide: HTTP_INTERCEPTORS, useClass: BearerAuthInterceptor, multi: true },

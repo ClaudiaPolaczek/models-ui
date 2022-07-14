@@ -24,7 +24,7 @@ export class AuthenticationService {
     return this.http.get<any>(`${environment.apiUrl}/dj-rest-auth/user`, {
       headers: { Authorization: `Bearer ${key}` }
     }).pipe(
-      map(user => new User(user.id, user.email, user.role, user.mainPhotoUrl, user.avgRate, key))
+      map(user => new User(user.id, user.email, user.role, user.main_photo_url, user.avg_rate, key))
     );
   }
 

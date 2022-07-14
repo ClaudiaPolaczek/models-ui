@@ -1,26 +1,26 @@
 <div class="card">
   <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
-  <p-table #dt2 [value]="modelsList" dataKey="id" styleClass="p-datatable-lg"
-           [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
-           [paginator]="true"
+  <p-table styleClass="p-datatable-scrollable-header-box" #dt2 [value]="modelsList" dataKey="id" styleClass="p-datatable-lg"
+           [rows]="10"  [rowsPerPageOptions]="[10,25,50]"
+           [loading]="loading"  [paginator]="true"
            [globalFilterFields]="['name', 'birthday_year', 'city','region', 'gender', 'hair_color', 'eyes_color']">
     <ng-template pTemplate="header">
       <tr>
-        <th>Zdjęcie główne</th>
-        <th>Imię Nazwisko</th>
-        <th>Wiek</th>
-        <th>Miasto</th>
-        <th>Województwo</th>
-        <th>Płeć</th>
-        <th>Kolor włosów</th>
-        <th>Kolor oczu</th>
-        <th style="width:4rem"></th>
+        <th style="width:9%">Zdjęcie główne</th>
+        <th style="width:13%">Imię Nazwisko</th>
+        <th style="width:10%">Wiek</th>
+        <th style="width:15%">Miasto</th>
+        <th style="width:13%">Województwo</th>
+        <th style="width:10%">Płeć</th>
+        <th style="width:10%">Kolor włosów</th>
+        <th style="width:10%">Kolor oczu</th>
+        <th style="width:4%"></th>
       </tr>
       <tr>
         <th>
 
         </th>
-        <th>
+        <th style="width:13%">
           <p-columnFilter type="text" field="name"></p-columnFilter>
         </th>
         <th>

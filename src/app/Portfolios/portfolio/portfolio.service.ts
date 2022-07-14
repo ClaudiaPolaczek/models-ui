@@ -23,6 +23,10 @@ export class PortfolioService {
     return this.http.get(`${environment.apiUrl}/portfolios/user/`, {params: {email: userEmail}});
   }
 
+  getAllPortfolios(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/portfolios/`);
+  }
+
   addPortfolio(idUser, portolioName, portolioDescription): Observable<any> {
     return this.http.post(`${environment.apiUrl}/portfolios/`, {
       user: idUser,

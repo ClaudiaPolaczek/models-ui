@@ -4,7 +4,7 @@ export class User {
     public email: string,
     public role: string,
     public main_photo_url: string,
-    public avgRate: number,
+    public avg_rate: number,
     public token?: string,
   ) {}
 }

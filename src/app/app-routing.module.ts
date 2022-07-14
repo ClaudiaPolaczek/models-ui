@@ -26,6 +26,7 @@ import {ModelProfilesComponent} from './Profiles/model-profiles/model-profiles.c
 import {PhotographerProfilesComponent} from './Profiles/photographer-profiles/photographer-profiles.component';
 import {PhotoshootInvitationComponent} from './Profiles/photoshoot-invitation/photoshoot-invitation.component';
 import {PortfolioListComponent} from './Portfolios/portfolio-list/portfolio-list.component';
+import {PortfolioImagesComponent} from './Portfolios/portfolio-images/portfolio-images.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'profiles', pathMatch: 'full', component: ProfileComponent/*, canActivate: [AuthGuard]*/ },
   { path: 'account/user', pathMatch: 'full', component: AccountComponent/*, canActivate: [AuthGuard]*/ },
   { path: 'portfolios', pathMatch: 'full', component: PortfolioListComponent/*, canActivate: [AuthGuard]*/ },
+  { path: 'portfolios/:id', pathMatch: 'full', component: PortfolioImagesComponent/*, canActivate: [AuthGuard]*/ },
   { path: 'photoshoot', pathMatch: 'full', component: PhotoshootComponent/*, canActivate: [AuthGuard]*/ },
   { path: 'photoshoot/:id', pathMatch: 'full', component: PhotoshootInvitationComponent/*, canActivate: [AuthGuard]*/ },
   { path: 'login', pathMatch: 'full', component: LoginComponent },
