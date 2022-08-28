@@ -5,7 +5,6 @@ import {AuthGuard} from './auth.guard';
 import { LoginComponent } from './Basic/login/login.component';
 import { AccountComponent } from './Account/account-user/account.component';
 import { AdminComponent } from './Admin/admin-users/admin.component';
-import { PortfolioComponent } from './Portfolios/portfolio/portfolio.component';
 import { PhotoshootComponent } from './Profiles/photoshoot/photoshoot.component';
 import { AppComponent } from './app.component';
 import {RegisterComponent} from './Basic/register/register.component';
@@ -27,6 +26,7 @@ import {PhotographerProfilesComponent} from './Profiles/photographer-profiles/ph
 import {PhotoshootInvitationComponent} from './Profiles/photoshoot-invitation/photoshoot-invitation.component';
 import {PortfolioListComponent} from './Portfolios/portfolio-list/portfolio-list.component';
 import {PortfolioImagesComponent} from './Portfolios/portfolio-images/portfolio-images.component';
+import {RegulationsComponent} from './Basic/regulations/regulations.component';
 
 
 const routes: Routes = [
@@ -42,6 +42,7 @@ const routes: Routes = [
   { path: 'photoshoot/:id', pathMatch: 'full', component: PhotoshootInvitationComponent/*, canActivate: [AuthGuard]*/ },
   { path: 'login', pathMatch: 'full', component: LoginComponent },
   { path: 'signup', pathMatch: 'full', component: RegisterComponent },
+  { path: 'regulations', pathMatch: 'full', component: RegulationsComponent },
   { path: 'user/model', pathMatch: 'full', component: AccountModelComponent },
   { path: 'user/instagram', pathMatch: 'full', component: AccountInstagramComponent },
   { path: 'user/password', pathMatch: 'full', component: AccountPasswordComponent },

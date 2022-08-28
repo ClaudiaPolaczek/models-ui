@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MenuItem, Message} from 'primeng/api';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../authentication.service';
-import {PortfolioService} from '../../Portfolios/portfolio/portfolio.service';
+import {PortfolioService} from '../../Portfolios/portfolio.service';
 import {User} from '../../user';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 

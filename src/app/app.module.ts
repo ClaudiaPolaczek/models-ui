@@ -9,7 +9,6 @@ import {ProfileComponent} from './Profiles/profile/profile.component';
 import { LoginComponent } from './Basic/login/login.component';
 import { AccountComponent } from './Account/account-user/account.component';
 import { AdminComponent } from './Admin/admin-users/admin.component';
-import { PortfolioComponent } from './Portfolios/portfolio/portfolio.component';
 import { PhotoshootComponent } from './Profiles/photoshoot/photoshoot.component';
 import {FilterService, PrimeNGConfig} from 'primeng/api';
 import {MenubarModule} from 'primeng/menubar';
@@ -63,6 +62,7 @@ import {DataViewModule} from 'primeng/dataview';
 import {BreadcrumbModule} from 'primeng/breadcrumb';
 import {GalleriaModule} from 'primeng/galleria';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +70,6 @@ import {GalleriaModule} from 'primeng/galleria';
     LoginComponent,
     AccountComponent,
     AdminComponent,
-    PortfolioComponent,
     PhotoshootComponent,
     RegisterComponent,
     AccountSettingsComponent,
@@ -128,7 +127,8 @@ import {GalleriaModule} from 'primeng/galleria';
     ImageModule,
     DataViewModule,
     BreadcrumbModule,
-    GalleriaModule
+    GalleriaModule,
+    RatingModule
   ],
   providers: [PrimeNGConfig, FilterService,
     { provide: HTTP_INTERCEPTORS, useClass: BearerAuthInterceptor, multi: true },

@@ -5,7 +5,7 @@ import {FormBuilder} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AccountService} from '../../Account/account-user/account.service';
 import {ProfileService} from '../../Profiles/profile/profile.service';
-import {PortfolioService} from '../portfolio/portfolio.service';
+import {PortfolioService} from '../portfolio.service';
 import {AuthenticationService} from '../../authentication.service';
 import {NGXLogger} from 'ngx-logger';
 import {CalculatorService} from '../../calculator.service';
@@ -32,6 +32,21 @@ export class PortfolioImagesComponent implements OnInit {
   portfolioId: number;
   loading = true;
   msgs: Message[] = [];
+
+  responsiveOptions:any[] = [
+    {
+      breakpoint: '1024px',
+      numVisible: 5
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 3
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1
+    }
+  ];
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -61,8 +76,7 @@ export class PortfolioImagesComponent implements OnInit {
       this.loading = false;
     });
     this.items = [
-      {label: 'Portfolio'},
-      {label: this.portfolio.name}
+      {label: 'Portfolio'}
     ];
     this.home = {icon: 'pi pi-home', routerLink: '/'};
   }

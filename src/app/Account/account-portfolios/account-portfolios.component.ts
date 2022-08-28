@@ -4,7 +4,7 @@ import {ConfirmationService, MenuItem, Message, MessageService} from 'primeng/ap
 import {User} from '../../user';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../authentication.service';
-import {PortfolioService} from '../../Portfolios/portfolio/portfolio.service';
+import {PortfolioService} from '../../Portfolios/portfolio.service';
 import {CalculatorService} from '../../calculator.service';
 
 export class Portfolio {
@@ -13,7 +13,7 @@ export class Portfolio {
     public user: User,
     public name: string,
     public description: string,
-    public mainPhotoUrl: string,
+    public main_photo_url: string,
     public added_date: Date
   ) {}
 }
@@ -76,6 +76,5 @@ export class AccountPortfoliosComponent implements OnInit {
 
   editPortfolio(portfolio): void {
     this.router.navigate(['/edit/portfolio', {id: portfolio.id}]);
-    //this.router.
   }
 }

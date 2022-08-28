@@ -6,7 +6,7 @@ import {ProfileService} from '../../Profiles/profile/profile.service';
 import {AuthenticationService} from '../../authentication.service';
 import {NGXLogger} from 'ngx-logger';
 import {CalculatorService} from '../../calculator.service';
-import {PortfolioService} from '../portfolio/portfolio.service';
+import {PortfolioService} from '../portfolio.service';
 import {FilterService, MenuItem, SelectItem} from 'primeng/api';
 import {User} from '../../user';
 import {Model} from '../../Profiles/model-profiles/model-profiles.component';
@@ -57,7 +57,7 @@ export class PortfolioListComponent implements OnInit {
         this.portfolioList = portfolios.map((portfolio) => {
           return { id: portfolio.id, email: portfolio.user === null ? 'xxx' : portfolio.user.email,
             name: portfolio.name,
-            description: portfolio.description, main: portfolio.main_photo_url,
+            description: portfolio.description, main_photo_url: portfolio.main_photo_url,
             added_date: this.calculatorService.getDate(portfolio.added_date)};
         });
       this.loading = false;

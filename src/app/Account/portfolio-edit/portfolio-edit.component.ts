@@ -2,7 +2,7 @@ import {Component, OnInit, SecurityContext} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../authentication.service';
-import {PortfolioService} from '../../Portfolios/portfolio/portfolio.service';
+import {PortfolioService} from '../../Portfolios/portfolio.service';
 import {ConfirmationService, MenuItem, Message, MessageService} from 'primeng/api';
 import {User} from '../../user';
 import {Portfolio} from '../account-portfolios/account-portfolios.component';
@@ -13,6 +13,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {SafeUrl} from '@angular/platform-browser';
 import {DomSanitizer} from '@angular/platform-browser';
 import {CalculatorService} from '../../calculator.service';
+import {ProfileService} from '../../Profiles/profile/profile.service';
 
 export class Image {
   constructor(
@@ -28,7 +29,7 @@ export class Image {
   selector: 'app-portfolio-edit',
   templateUrl: './portfolio-edit.component.html',
   styleUrls: ['./portfolio-edit.component.css'],
-  providers: [DialogService, MessageService]
+  providers: [ConfirmationService, DialogService, MessageService]
 })
 export class PortfolioEditComponent implements OnInit {
 
@@ -50,11 +51,13 @@ export class PortfolioEditComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private authService: AuthenticationService,
+              private authenticationService: AuthenticationService,
               private portfolioService: PortfolioService,
+              private profileService: ProfileService,
               private messageService: MessageService,
               private dialogService: DialogService,
               private sanitizer: DomSanitizer,
+              private confirmationService: ConfirmationService,
               public calculatorService: CalculatorService
   ) {
     this.albumForm = formBuilder.group({
@@ -68,20 +71,27 @@ export class PortfolioEditComponent implements OnInit {
     }, {});
   }
 
-  ngOnInit() {
+ngOnInit() {
+    this.authenticationService.currentUser.subscribe(user =>
+      this.user = user
+    );
     this.route.paramMap.subscribe(params => {
       this.portfolioId = +this.route.snapshot.paramMap.get('id');
       this.portfolioService.findById(this.portfolioId).subscribe(portfolio => {
         this.portfolio = portfolio;
       });
       this.portfolioService.getImagesByPortfolio(this.portfolioId).subscribe(images => {
-        this.images = images;
+        this.images = images.map((image) => {
+          return { id: image.id, portfolio: image.portfolio,
+          file_url: image.file_url,
+          name: image.name, added_date: this.calculatorService.getDate(image.added_date)};
+   });
       });
     });
     this.items = [
       {label: 'Konto'},
       {label: 'Albumy'},
-      {label: this.portfolio.name},
+      {label: 'Edycja'},
     ];
     this.home = {icon: 'pi pi-home', routerLink: '/'};
   }
@@ -94,26 +104,19 @@ export class PortfolioEditComponent implements OnInit {
     this.photoDialog = true;
   }
 
-  myUploader(event) {
-    for ( let file of event.files) {
+  async myUploader(event) {
+    for (let file of event.files) {
       console.log('FILE TO BE UPLOADED: ');
+      console.log(event);
+      const url = window.URL.createObjectURL(file);
+      this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(url);
 
-      const url = URL.createObjectURL(file);
-      console.log(url);
-      //this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(url);
-      this.imageUrl = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, this.sanitizer.bypassSecurityTrustResourceUrl(url));
-      console.log(this.imageUrl);
-      console.log(file.name);
-      this.uploadedFiles.push(file);
-
-      const formData: FormData = new FormData();
-      formData.append('portfolio', this.portfolioId.toString());
-      formData.append('file_url', url);
-      formData.append('name', file.name);
-      console.log(formData);
-      console.log(formData.get('name'));
-      this.portfolioService.addImage(formData).subscribe(image => {
-        this.spin = true;
+      this.portfolioService.addImage(
+        this.portfolioId,
+        this.imageUrl,
+        file.name
+      ).subscribe(user => {
+        this.spin = false;
         window.location.reload();
         this.msgs = [];
         this.msgs.push({severity: 'info', summary: 'Success', detail: 'Image Submitted'});
@@ -130,18 +133,6 @@ export class PortfolioEditComponent implements OnInit {
     console.log('Save BE UPLOADED: ');
     this.photoDialog = false;
     for (const file of this.uploadedFiles) {
-
-      console.log('file Save BE UPLOADED: ');
-      this.portfolioService.addImage(this.portfolioId).subscribe(image => {
-        this.spin = false;
-        window.location.reload();
-        this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Success', detail: 'Image Submitted'});
-      }, _ => {
-        this.spin = false;
-        this.msgs = [];
-        this.msgs.push({severity: 'error', summary: 'Error', detail: 'Error'});
-      });
     }
     this.uploadedFiles = [];
     window.location.reload();
@@ -165,5 +156,56 @@ export class PortfolioEditComponent implements OnInit {
       this.msgs = [];
       this.msgs.push({severity: 'error', summary: 'Error', detail: 'Error'});
     });
+  }
+
+  updatePortfolioSetMain(image): void {
+    this.editDialog = false;
+    this.spin = true;
+    const controls = this.albumForm.controls;
+    this.portfolioService.setMainPhotoUrl(
+      this.portfolioId,
+      image.file_url
+    ).subscribe(user => {
+      this.spin = false;
+      this.msgs = [];
+      this.msgs.push({severity: 'info', summary: 'Success', detail: 'Portfolio updated'});
+      window.location.reload();
+    }, _ => {
+      this.spin = false;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: 'Error'});
+    });
+  }
+
+  updateUserSetMain(image): void {
+    this.editDialog = false;
+    this.spin = true;
+    const controls = this.albumForm.controls;
+    this.profileService.addMainPhotoUrl(
+      this.user.email,
+      image.file_url
+    ).subscribe(user => {
+      this.spin = false;
+      this.msgs = [];
+      this.msgs.push({severity: 'info', summary: 'Success', detail: 'Form Submitted'});
+      this.authenticationService.getUserData(this.user.token).subscribe(ur => {
+        this.authenticationService.storeUser(ur);
+      });
+      window.location.reload();
+    }, _ => {
+      this.spin = false;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: 'Error'});
+    });
+  }
+
+  deleteImage(image): void {
+    this.portfolioService.deleteById(image.id).subscribe(() => {
+          this.msgs = [];
+          this.msgs.push({severity: 'info', summary: 'Success', detail: 'Deleted image'});
+        }, _ => {
+          this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'Error'}];
+        });
+    window.location.reload();
   }
 }

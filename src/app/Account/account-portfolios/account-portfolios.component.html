@@ -1,20 +1,44 @@
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
 <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
-<div class="surface-card p-4 shadow-2 border-round">
-  <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
-  <p-card *ngFor="let portfolio of portfolios" [style]="{width: '360px'}">
-    <h3 style="margin-top: 0px">{{portfolio.name}}</h3>
-    <img src="{{portfolio.mainPhotoUrl}}" width="100"/>
-    <p><strong>Nazwa: </strong>{{portfolio.name}}</p>
-    <p><strong>Opis: </strong>{{portfolio.description}}</p>
-    <p><strong>Data dodania: </strong>{{this.calculatorService.getDate(portfolio.added_date)}}</p>
-    <div class="col-12" class="buttons">
-      <ng-template pTemplate="footer">
-          <a [routerLink]="['/edit/portfolio', portfolio.id]">
-            <p-button label="Edytuj portfolio" icon="pi pi-pencil" class="button" >
-        </p-button></a>
-        <p-button label="Usuń portfolio" icon="pi pi-times" class="button" (click)="deletePortfolio(portfolio);"></p-button>
-      </ng-template>
+  <div class="card">
+    <div class="card-container" *ngFor="let portfolio of portfolios">
+      <div class="block text-center p-4 border-round mb-3">
+        <div class="grid">
+          <div class="col-4 font-bold flex align-items-center justify-content-center">
+            <div class="grid">
+              <div class="col-12 h-10rem">
+                <p-image src="{{portfolio.main_photo_url}}" width="250"></p-image>
+              </div>
+              <div class="col-12" [style]="{'margin-top': '30px'}">
+                <p><strong>{{portfolio.name}}</strong></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="grid">
+              <div class="col-12 flex align-items-start h-3rem">
+               <strong class="mr-4">Data dodania:</strong>{{this.calculatorService.getDate(portfolio.added_date)}}
+              </div>
+              <div class="col-12 flex align-items-start">
+                <strong class="mr-4">Opis: </strong>{{portfolio.description}}
+              </div>
+            </div>
+          </div>
+          <div class="col-4 flex ">
+            <div class="grid">
+              <div class="col-12 flex py-3 h-3rem">
+                <a [routerLink]="['/edit/portfolio', portfolio.id]">
+                  <p-button label="Edytuj portfolio" icon="pi pi-pencil" [style]="{width: '200px'}" class="p-button-secondary">
+                  </p-button>
+                </a>
+              </div>
+              <div class="col-12 flex align-items-start py-3">
+                <p-button label="Usuń portfolio" icon="pi pi-times" [style]="{width: '200px'}" class="p-button-secondary" (click)="deletePortfolio(portfolio);"></p-button>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </p-card>
-</div>

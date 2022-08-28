@@ -124,4 +124,15 @@ export class ProfileService {
            })
     );
   }
+
+  addMainPhotoUrl(userEmail,  url): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/users/photo/`, {
+      fileUrl: url
+    }, {
+      headers: { 'Content-Type': 'application/json' }, params: {email: userEmail}}).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(error);
+      })
+    );
+  }
 }

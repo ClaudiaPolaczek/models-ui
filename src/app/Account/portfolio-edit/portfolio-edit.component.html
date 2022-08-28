@@ -1,83 +1,71 @@
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
-<div class="surface-card p-4 shadow-2 border-round">
-  <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
-    <h3 style="margin-top: 0px">{{portfolio.name}}</h3>
-    <img src="{{portfolio.mainPhotoUrl}}" width="100"/>
-    <p><strong>Nazwa: </strong>{{portfolio.name}}</p>
-    <p><strong>Opis: </strong>{{portfolio.description}}</p>
-    <p><strong>Data utworzenia: </strong>{{this.calculatorService.getDate(portfolio.added_date)}}</p>
-    <div class="col-12" class="buttons">
-        <p-button label="Edytuj dane" icon="pi pi-pencil" class="button" (click)="editPortfolio()"></p-button>
-        <p-dialog header="Edycja albumu" [(visible)]="editDialog" [style]="{width: '50vw'}">
-          <form [formGroup]="albumForm" (ngSubmit)="save()">
-          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 15px 0px">
-            <div class="ui-grid-row">
-              <div class="ui-grid-col-2">
-                {{'Nazwa *:'}}
-              </div>
-              <div class="ui-grid-col-2">
-                <input pInputText formControlName="name" value="{{portfolio.name}}" />
-              </div>
-              <div class="ui-grid-col-2">
-                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!albumForm.controls['name'].valid&&albumForm.controls['name'].dirty">
-                  <i class="fa fa-close"></i>
-                  {{'Nazwa jest wymagane'}}
-                </div>
-              </div>
-              <div class="ui-grid-col-2">
-                {{'Opis *:'}}
-              </div>
-              <div class="ui-grid-col-2">
-                <textarea pInputTextarea formControlName="description" value="{{portfolio.description}}"></textarea>
-              </div>
-              <div class="ui-grid-col-2">
-                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!albumForm.controls['description'].valid&&albumForm.controls['description'].dirty">
-                  <i class="fa fa-close"></i>
-                  {{'Opis jest wymagany'}}
-                </div>
-              </div>
-            </div>
+  <div class="block text-center p-4 border-round mb-3">
+    <div class="grid">
+      <div class="col-4 font-bold flex align-items-center justify-content-center">
+            <p-image src="{{portfolio.main_photo_url}}" width="350"></p-image>
+      </div>
+      <div class="col-4">
+        <div class="grid">
+          <div class="col-12 flex align-items-start h-3rem">
+            <strong>{{portfolio.name}}</strong>
           </div>
-          </form>
-            <ng-template pTemplate="footer">
-              <p-button icon="pi pi-check" (click)="updatePortfolio()" label="Zapisz zmiany" styleClass="p-button-text"></p-button>
-            </ng-template>
-        </p-dialog>
-        <p-button label="Dodaj zdjęcie" class="button" (click)="addPhotoDialog()"></p-button>
-        <p-dialog header="Nowe zdjęcia" [(visible)]="photoDialog" [style]="{width: '50vw'}">
-          <p-fileUpload (uploadHandler)="myUploader($event)" customUpload="true" name="demo[]"
-                        multiple="multiple" accept="image/*" maxFileSize="1000000">
-            <ng-template pTemplate="content">
-              <ul *ngIf="uploadedFiles.length">
-                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-              </ul>
-            </ng-template>
-          </p-fileUpload>
-          <ng-template pTemplate="footer">
-            <p-button icon="pi pi-check" (click)="save()" label="Ok" styleClass="p-button-text"></p-button>
-          </ng-template>
-        </p-dialog>
-    </div>
-  <p-carousel [value]="images" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
-    <ng-template pTemplate="header">
-      <h5>Basic</h5>
-    </ng-template>
-    <ng-template let-image pTemplate="item">
-      <div class="images-item">
-        <div class="product-item-content">
-          <div class="mb-3">
-            <p-image src="{{image.file_url}}" alt="Image" width="250"></p-image>
+          <div class="col-12 flex align-items-start h-3rem">
+            <strong class="mr-4">Data dodania:</strong>{{this.calculatorService.getDate(portfolio.added_date)}}
           </div>
-          <div>
-            <h4 class="mb-1">{{image.name}}</h4>
-            <div class="car-buttons mt-5">
-              <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-user"></p-button>
-              <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-home"></p-button>
-              <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-trash"></p-button>
-            </div>
+          <div class="col-12 flex align-items-start">
+            <strong class="mr-4">Opis: </strong>{{portfolio.description}}
           </div>
         </div>
       </div>
+      <div class="col-4 flex h-3rem">
+        <p-button label="Edytuj dane" icon="pi pi-pencil" class="button" (click)="editPortfolio()"></p-button>
+        <p-dialog header="Edycja albumu" [(visible)]="editDialog" [style]="{width: '50vw'}">
+          <form [formGroup]="albumForm">
+            <form [formGroup]="albumForm">
+              <label for="name" class="block text-900 font-medium mb-2">Nazwa *:
+                <p-message [style]="{'height':'15px', 'margin-bottom': '15px'}" severity="error" text="Niepoprawna nazwa" *ngIf="!albumForm.controls['name'].valid&&albumForm.controls['name'].dirty"></p-message>
+              </label>
+              <input [formGroup]="albumForm" formControlName="name" type="text" id="name" pInputText class="w-full mb-3">
+              <label for="description" class="block text-900 font-medium mb-2">Opis *:
+                <p-message [style]="{'height':'15px', 'margin-bottom': '15px'}" severity="error" text="Niepoprawny opis" *ngIf="!albumForm.controls['description'].valid&&albumForm.controls['description'].dirty"></p-message>
+              </label>
+              <input [formGroup]="albumForm" formControlName="description" type="text" id="description" pInputText class="w-full mb-3">
+            </form>
+            <button pButton pRipple [style]="{'width':'200px', 'margin-bottom': '10px'}" label="Zapisz zmiany" icon="pi pi-save" (click)="updatePortfolio();"></button>
+          </form>
+        </p-dialog>
+      </div>
+    </div>
+  </div>
+
+<div class="surface-section">
+  <div class="font-medium text-3xl text-900 mb-3">Zdjęcia</div>
+  <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer" (click)="addPhotoDialog()">Dodaj nowe zdjęcie</a>
+  <p-dialog header="Nowe zdjęcia" [(visible)]="photoDialog" [style]="{width: '50vw'}">
+    <p-fileUpload (uploadHandler)="myUploader($event)" customUpload="true" name="files"
+                  multiple="true" [showUploadButton]="true" accept="image/*" maxFileSize="1000000">
+      <ng-template pTemplate="content">
+        <ul *ngIf="uploadedFiles.length">
+          <li *ngFor="let file of uploadedFiles">{{file.url}} - {{file.name}} - {{file.size}} bytes</li>
+        </ul>
+      </ng-template>
+    </p-fileUpload>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="save()" label="Ok" styleClass="p-button-text"></p-button>
     </ng-template>
-  </p-carousel>
+  </p-dialog>
+
+  <ul class="list-none p-0 m-0">
+    <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap" *ngFor="let image of images">
+      <div class="text-500 w-4 md:w-2 align-items-center font-medium">
+        <p-image src="{{image.file_url}}" alt="Image" width="250"></p-image>
+      </div>
+      <div class="w-8 flex justify-content-end">
+        <button pButton pRipple (click)="updateUserSetMain(image);" label="Ustaw jako profilowe" icon="pi pi-pencil" class="p-button-text"></button>
+        <button pButton pRipple (click)="updatePortfolioSetMain(image);" label="Ustaw jako zdjęcie główne albumu" icon="pi pi-pencil" class="p-button-text"></button>
+        <button pButton pRipple (click)="deleteImage(image);" label="Usuń zdjęcie" icon="pi pi-pencil" class="p-button-text"></button>
+      </div>
+    </li>
+  </ul>
 </div>

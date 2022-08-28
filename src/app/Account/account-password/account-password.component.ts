@@ -23,11 +23,10 @@ export class AccountPasswordComponent implements OnInit {
     this.passwordForm = formBuilder.group({
       oldPassword: formBuilder.control('', [
         Validators.required,
-        //Validators.minLength(8)
       ]),
       password: formBuilder.control('', [
         Validators.required,
-        //Validators.minLength(8)
+        Validators.minLength(8)
       ]),
       repeatPassword: formBuilder.control(''),
     }, {
@@ -68,11 +67,11 @@ export class AccountPasswordComponent implements OnInit {
       this.spin = false;
       this.router.navigate(['/profile']);
       this.msgs = [];
-      this.msgs.push({severity: 'error', summary: 'Success', detail: 'Password changed'});
+      this.msgs.push({severity: 'error', summary: 'Success', detail: 'Hasło zmienione'});
     }, _ => {
       this.spin = false;
       this.msgs = [];
-      this.msgs.push({severity: 'warning', summary: 'Error', detail: 'Password not changed'});
+      this.msgs.push({severity: 'warning', summary: 'Error', detail: 'Hasło nie zostało zmienione'});
     });
   }
 }

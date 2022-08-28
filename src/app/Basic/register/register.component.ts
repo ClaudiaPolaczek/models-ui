@@ -213,4 +213,8 @@ export class RegisterComponent implements OnInit {
     this.msgs.push({severity: 'info', summary: 'Success', detail: 'Form Submitted'});
   }
 
+  regulations(): void {
+    this.router.navigate(['/regulations']);
+  }
+
 }

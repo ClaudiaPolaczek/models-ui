@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,  HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {environment } from '../../../environments/environment';
+import {environment } from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
 
 @Injectable({
@@ -51,8 +51,10 @@ export class PortfolioService {
     );
   }
 
-  setMainPhotoUrl(idPortfolio,  data): Observable<any> {
-    return this.http.patch(`${environment.apiUrl}/portfolios/photo/`, data, {
+  setMainPhotoUrl(idPortfolio,  url): Observable<any> {
+    return this.http.patch(`${environment.apiUrl}/portfolios/photo/`, {
+      main_photo_url: url
+    }, {
       headers: { 'Content-Type': 'application/json' }, params: {id: idPortfolio}}).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(error);
@@ -76,9 +78,12 @@ export class PortfolioService {
     return this.http.get(`${environment.apiUrl}/images/portfolio/`, {params: {portfolio: idPortfolio}});
   }
 
-  addImage(data): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/images/`, {data} ,
-      { headers: { 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }}
+  addImage(portfolioId, fileUrl, nameFile): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/images/`, {
+        portfolio: portfolioId,
+        file_url: fileUrl,
+        name: nameFile
+      } , this.httpOptions
     ).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(error);
@@ -86,9 +91,8 @@ export class PortfolioService {
     );
   }
 
-  deleteById(id, data): Observable<any> {
-    console.log('data', data);
-    return this.http.delete(`${environment.apiUrl}/images/${id}/`, data)
+  deleteById(id): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/images/` + id + '/', { headers: { 'Content-Type': 'application/json' }})
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return throwError(error);
@@ -96,8 +100,7 @@ export class PortfolioService {
       );
   }
 
-  deleteByUrl(imageUrl, data): Observable<any> {
-    console.log('data', data);
+  deleteByUrl(imageUrl): Observable<any> {
     return this.http.delete(`${environment.apiUrl}/images/url/`, {params: {url: imageUrl}})
       .pipe(
         catchError((error: HttpErrorResponse) => {

@@ -11,7 +11,6 @@ import {User} from '../../user';
 import {Survey, UserDatails} from '../../Account/account-user/account.component';
 import {CalculatorService} from '../../calculator.service';
 
-
 export interface Comment {
   id?: number;
   rating_user_id?: number;
@@ -42,7 +41,7 @@ export class ModelProfileComponent implements OnInit {
   commentForm: FormGroup;
   loading = true;
   newComment: boolean;
-  rating = 3;
+  rating = 5;
   email: string;
   tabUrl = 'https://www.instagram.com/';
 
@@ -91,7 +90,7 @@ export class ModelProfileComponent implements OnInit {
     });
     this.items = [
       {label: 'Profile'},
-      {label: this.survey.first_name + ' ' + this.survey.last_name},
+     // {label: this.survey.first_name + ' ' + this.survey.last_name},
     ];
     this.home = {icon: 'pi pi-home', routerLink: '/'};
   }

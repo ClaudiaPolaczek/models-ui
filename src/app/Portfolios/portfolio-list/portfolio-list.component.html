@@ -1,43 +1,41 @@
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <div class="card">
-  <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
-  <p-dataView #dv [value]="portfolioList" [paginator]="true" [rows]="9" filterBy="name" [lazy]="true" (onLazyLoad)="loadData($event)"
-              [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
-    <ng-template pTemplate="header">
-      <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
-        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sortuj" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
-        <span class="p-input-icon-left p-mb-2 p-mb-md-0">
-                    <i class="pi pi-search"></i>
-                    <input pInputText placeholder="Tytuł" #textInput
-                           type="text" (input)="dv.filter(getEventValue($event), 'contains')" >
-        </span>
-        <span class="p-input-icon-left p-mb-2 p-mb-md-0">
-                    <i class="pi pi-search"></i>
-                    <input pInputText placeholder="Data dodania" #textInput
-                           type="text" (input)="dv.filter(getEventValue($event), 'contains')" >
-        </span>
-        <span class="p-input-icon-left p-mb-2 p-mb-md-0">
-                    <i class="pi pi-search"></i>
-                    <input pInputText placeholder="Profesja" #textInput
-                           type="text" (input)="dv.filter(getEventValue($event), 'contains')" >
-        </span>
-        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-      </div>
-    </ng-template>
-    <ng-template let-portfolio pTemplate="listItem">
-      <div class="p-col-12">
-        <div class="product-list-item">
-          <p-image src="{{portfolio.main_photo_url}}" alt="Image" width="250"></p-image>
-          <p-button icon="pi pi-eye" label="Zobacz album" (click)="selectPortfolio(portfolio)"></p-button>
-          <div class="product-list-detail">
-            <div class="portfolio-name">Nazwa portfolio: {{portfolio.name}}</div>
-            <div class="portfolio-name">Email użytkownika: <p>{{portfolio.email}}</p></div>
-            <div class="portfolio-description">Data dodania: {{portfolio.added_date}}</div>
+  <div class="card-container" *ngFor="let portfolio of portfolioList">
+    <div class="block text-center p-4 border-round mb-3">
+      <div class="grid">
+        <div class="col-4 font-bold flex align-items-center justify-content-center">
+          <div class="grid">
+            <div class="col-12 h-10rem">
+              <p-image src="{{portfolio.main_photo_url}}" width="250"></p-image>
+            </div>
+            <div class="col-12" [style]="{'margin-top': '30px'}">
+              <p><strong>{{portfolio.name}}</strong></p>
+            </div>
           </div>
-          <div class="product-list-action">
-            <div class="portfolio-description">{{portfolio.description}}</div>
+        </div>
+        <div class="col-4">
+          <div class="grid">
+            <div class="col-12 flex align-items-start h-3rem">
+              <strong class="mr-4">Data dodania:</strong>{{this.calculatorService.getDate(portfolio.added_date)}}
+            </div>
+            <div class="col-12 flex align-items-start h-3rem">
+              <strong class="mr-4">Email użytkownika: </strong>{{portfolio.email}}
+            </div>
+            <div class="col-12 flex align-items-start">
+              <strong class="mr-4">Opis: </strong>{{portfolio.description}}
+            </div>
+          </div>
+        </div>
+        <div class="col-4 flex ">
+          <div class="grid">
+            <div class="col-12 flex py-3 h-3rem">
+              <p-button label="Zobacz album" (click)="selectPortfolio(portfolio)" icon="pi pi-eye" [style]="{width: '200px'}" class="p-button-secondary">
+              </p-button>
+            </div>
           </div>
         </div>
       </div>
-    </ng-template>
-  </p-dataView>
+    </div>
+  </div>
 </div>
+
