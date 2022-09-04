@@ -58,11 +58,11 @@ export class NewPortfolioComponent implements OnInit {
       this.spin = false;
       this.router.navigate(['/user/portfolio']);
       this.msgs = [];
-      this.msgs.push({severity: 'error', summary: 'Success', detail: 'Album został utworzony'});
+      this.msgs.push({severity: 'error', summary: 'Sukces', detail: 'Album został utworzony'});
     }, _ => {
       this.spin = false;
       this.msgs = [];
-      this.msgs.push({severity: 'error', summary: 'Error', detail: 'Błąd podczas tworzenia albumu'});
+      this.msgs.push({severity: 'error', summary: 'Błąd', detail: 'Błąd podczas tworzenia albumu'});
     });
   }
 }

@@ -1,1 +1,32 @@
-<p>welcome works!</p>
+<p-card header="Top profile modelek" [style]="{'width': '100%', 'margin-bottom': '2em'}">
+  <p-carousel [value]="models" [numVisible]="3" [numScroll]="3" [circular]="false">
+    <ng-template let-model pTemplate="item">
+      <div class="product-item">
+        <div class="product-item-content">
+          <div class="mb-3">
+            <img src="{{model.main_photo_url}}" [alt]="model.username" class="product-image" height="400"/>
+          </div>
+          <div>
+            <h4 class="mb-1">{{model.username}}</h4>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</p-card>
+<p-card header="Top profile fotografów" [style]="{'width': '100%', 'margin-bottom': '2em'}">
+  <p-carousel [value]="photographers" [numVisible]="3" [numScroll]="3" [circular]="false">
+    <ng-template let-photographer pTemplate="item">
+      <div class="product-item">
+        <div class="product-item-content">
+          <div class="mb-3">
+            <img src="{{photographer.main_photo_url}}" [alt]="photographer.usernamee" class="product-image" height="400"/>
+          </div>
+          <div>
+            <h4 class="mb-1">{{photographer.username}}</h4>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</p-card>

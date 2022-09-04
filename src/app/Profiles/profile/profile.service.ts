@@ -35,6 +35,10 @@ export class ProfileService {
     return this.http.get(`${environment.apiUrl}/photographers/`);
   }
 
+  getAvgForEachUser(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/comments/avg/`);
+  }
+
   findModelByEmail(userEmail): Observable<any> {
     return this.http.get(`${environment.apiUrl}/models/email/`, {params: {email: userEmail}});
   }

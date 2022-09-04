@@ -168,12 +168,12 @@ ngOnInit() {
     ).subscribe(user => {
       this.spin = false;
       this.msgs = [];
-      this.msgs.push({severity: 'info', summary: 'Success', detail: 'Portfolio updated'});
+      this.msgs.push({severity: 'info', summary: 'Sukces', detail: 'Zdjęcie głowne zostało ustawione'});
       window.location.reload();
     }, _ => {
       this.spin = false;
       this.msgs = [];
-      this.msgs.push({severity: 'error', summary: 'Error', detail: 'Error'});
+      this.msgs.push({severity: 'error', summary: 'Błąd', detail: ''});
     });
   }
 
@@ -187,7 +187,7 @@ ngOnInit() {
     ).subscribe(user => {
       this.spin = false;
       this.msgs = [];
-      this.msgs.push({severity: 'info', summary: 'Success', detail: 'Form Submitted'});
+      this.msgs.push({severity: 'info', summary: 'Sukces', detail: 'Zdjęcie głowne zostało ustawione'});
       this.authenticationService.getUserData(this.user.token).subscribe(ur => {
         this.authenticationService.storeUser(ur);
       });
@@ -202,9 +202,9 @@ ngOnInit() {
   deleteImage(image): void {
     this.portfolioService.deleteById(image.id).subscribe(() => {
           this.msgs = [];
-          this.msgs.push({severity: 'info', summary: 'Success', detail: 'Deleted image'});
+          this.msgs.push({severity: 'info', summary: 'Sukces', detail: 'Obraz został usunięty'});
         }, _ => {
-          this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'Error'}];
+          this.msgs = [{severity: 'info', summary: 'Błąd', detail: ''}];
         });
     window.location.reload();
   }

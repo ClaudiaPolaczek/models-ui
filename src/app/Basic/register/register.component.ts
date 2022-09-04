@@ -178,12 +178,12 @@ export class RegisterComponent implements OnInit {
     ).subscribe(user => {
       this.spin = false;
       this.msgs = [];
-      this.msgs.push({severity: 'info', summary: 'Success', detail: 'Form Submitted'});
+      this.msgs.push({severity: 'info', summary: 'Sukces', detail: 'Konto zostało utworzone'});
       this.router.navigate(['/login']);
     }, _ => {
       this.spin = false;
       this.msgs = [];
-      this.msgs.push({severity: 'error', summary: 'Error', detail: 'Not registered'});
+      this.msgs.push({severity: 'error', summary: 'Błąd', detail: 'Konto nie zostało utworzone'});
     });
 
   }
@@ -210,7 +210,7 @@ export class RegisterComponent implements OnInit {
       this.spin = false;
     });
     this.msgs = [];
-    this.msgs.push({severity: 'info', summary: 'Success', detail: 'Form Submitted'});
+    this.msgs.push({severity: 'info', summary: 'Sukces', detail: 'Konto zostało utworzone'});
   }
 
   regulations(): void {

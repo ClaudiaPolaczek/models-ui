@@ -40,7 +40,6 @@ export class PhotographerProfileComponent implements OnInit {
               private accountService: AccountService,
               private profileService: ProfileService,
               private authService: AuthenticationService,
-              private logger: NGXLogger,
               public calculatorService: CalculatorService) {
     this.commentForm = formBuilder.group({
       description: formBuilder.control('', [
@@ -97,7 +96,7 @@ export class PhotographerProfileComponent implements OnInit {
     ).subscribe(comment => {
       window.location.reload();
       this.msgs = [];
-      this.msgs.push({severity: 'info', summary: 'Success', detail: 'Komentarz dodany'});
+      this.msgs.push({severity: 'info', summary: 'Sukces', detail: 'Komentarz dodany'});
     }, _ => {
       this.msgs = [];
       this.msgs.push({severity: 'error', summary: 'Error', detail: 'Błąd'});
@@ -107,7 +106,7 @@ export class PhotographerProfileComponent implements OnInit {
   getComments(): void {
     this.accountService.getCommentsByRatedUser(1).subscribe(comments => {
       this.msgs = [];
-      this.msgs.push({severity: 'info', summary: 'Success', detail: 'Komentarz dodany'});
+      this.msgs.push({severity: 'info', summary: 'Sukces', detail: 'Komentarz dodany'});
     }, _ => {
       this.msgs = [];
       this.msgs.push({severity: 'error', summary: 'Error', detail: 'Błąd'});
@@ -118,7 +117,7 @@ export class PhotographerProfileComponent implements OnInit {
     this.accountService.deleteComment(id).subscribe(comments => {
       this.msgs = [];
       window.location.reload();
-      this.msgs.push({severity: 'info', summary: 'Success', detail: 'Komentarz usunięty'});
+      this.msgs.push({severity: 'info', summary: 'Sukces', detail: 'Komentarz usunięty'});
     }, _ => {
       this.msgs = [];
       this.msgs.push({severity: 'error', summary: 'Error', detail: 'Błąd'});

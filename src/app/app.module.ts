@@ -5,7 +5,6 @@ import {LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BearerAuthInterceptor} from './bearer-auth.interceptor';
-import {ProfileComponent} from './Profiles/profile/profile.component';
 import { LoginComponent } from './Basic/login/login.component';
 import { AccountComponent } from './Account/account-user/account.component';
 import { AdminComponent } from './Admin/admin-users/admin.component';
@@ -51,7 +50,6 @@ import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import {TableModule} from 'primeng/table';
 import { NewPortfolioComponent } from './Account/portfolio-new/new-portfolio.component';
 import { PortfolioEditComponent } from './Account/portfolio-edit/portfolio-edit.component';
-import { PortfoliosComponent } from './portfolios/portfolios.component';
 import { AccountPortfoliosComponent } from './Account/account-portfolios/account-portfolios.component';
 import {DialogModule} from 'primeng/dialog';
 import {FileUploadModule} from 'primeng/fileupload';
@@ -66,7 +64,6 @@ import {GalleriaModule} from 'primeng/galleria';
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileComponent,
     LoginComponent,
     AccountComponent,
     AdminComponent,
@@ -91,7 +88,6 @@ import {GalleriaModule} from 'primeng/galleria';
     CalendarComponent,
     NewPortfolioComponent,
     PortfolioEditComponent,
-    PortfoliosComponent,
     AccountPortfoliosComponent,
   ],
   imports: [

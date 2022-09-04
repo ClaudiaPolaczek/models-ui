@@ -176,11 +176,11 @@ export class AccountSettingsComponent implements OnInit {
       this.spin = false;
       this.router.navigate(['/profile']);
       this.msgs = [];
-      this.msgs.push({severity: 'info', summary: 'Success', detail: 'Form Submitted'});
+      this.msgs.push({severity: 'info', summary: 'Sukces', detail: 'Dane zostały zapisane'});
     }, _ => {
       this.spin = false;
       this.msgs = [];
-      this.msgs.push({severity: 'error', summary: 'Error', detail: 'Error'});
+      this.msgs.push({severity: 'error', summary: 'Błąd', detail: ''});
     });
 
   }

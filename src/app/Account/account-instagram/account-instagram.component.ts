@@ -70,7 +70,7 @@ export class AccountInstagramComponent implements OnInit {
       this.spin = false;
       this.router.navigate(['/profile']);
       this.msgs = [];
-      this.msgs.push({severity: 'info', summary: 'Success', detail: 'Instagram name changed'});
+      this.msgs.push({severity: 'info', summary: 'Sukces', detail: 'Nazwa została zmieniona'});
     }, _ => {
       this.spin = false;
     });
@@ -86,7 +86,7 @@ export class AccountInstagramComponent implements OnInit {
       this.spin = false;
       this.router.navigate(['/profile']);
       this.msgs = [];
-      this.msgs.push({severity: 'info', summary: 'Success', detail: 'Instagram name changed'});
+      this.msgs.push({severity: 'info', summary: 'Sukces', detail: 'Nazwa została zmieniona'});
     }, _ => {
       this.spin = false;
     });

@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from '@angular/router';
-import {ProfileComponent} from './Profiles/profile/profile.component';
-import {AuthGuard} from './auth.guard';
 import { LoginComponent } from './Basic/login/login.component';
 import { AccountComponent } from './Account/account-user/account.component';
 import { AdminComponent } from './Admin/admin-users/admin.component';
@@ -34,7 +32,6 @@ const routes: Routes = [
     path: '',
     component: WelcomeComponent/*, canActivate: [AuthGuard]*/
   },
-  { path: 'profiles', pathMatch: 'full', component: ProfileComponent/*, canActivate: [AuthGuard]*/ },
   { path: 'account/user', pathMatch: 'full', component: AccountComponent/*, canActivate: [AuthGuard]*/ },
   { path: 'portfolios', pathMatch: 'full', component: PortfolioListComponent/*, canActivate: [AuthGuard]*/ },
   { path: 'portfolios/:id', pathMatch: 'full', component: PortfolioImagesComponent/*, canActivate: [AuthGuard]*/ },

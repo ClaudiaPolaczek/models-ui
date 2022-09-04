@@ -67,11 +67,11 @@ export class AccountPasswordComponent implements OnInit {
       this.spin = false;
       this.router.navigate(['/profile']);
       this.msgs = [];
-      this.msgs.push({severity: 'error', summary: 'Success', detail: 'Hasło zmienione'});
+      this.msgs.push({severity: 'error', summary: 'Sukces', detail: 'Hasło zostało zmienione'});
     }, _ => {
       this.spin = false;
       this.msgs = [];
-      this.msgs.push({severity: 'warning', summary: 'Error', detail: 'Hasło nie zostało zmienione'});
+      this.msgs.push({severity: 'warning', summary: 'Błąd', detail: 'Hasło nie zostało zmienione'});
     });
   }
 }

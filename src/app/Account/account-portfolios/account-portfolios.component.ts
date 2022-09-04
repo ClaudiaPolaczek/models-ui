@@ -62,14 +62,14 @@ export class AccountPortfoliosComponent implements OnInit {
         accept: () => {
           this.portfolioService.deletePortfolioById(portfolio.id).subscribe(() => {
               this.msgs = [];
-              this.msgs.push({severity: 'info', summary: 'Success', detail: 'Deleted portfolio'});
+              this.msgs.push({severity: 'info', summary: 'Sukces', detail: 'Album usunięty'});
               window.location.reload();
             }, _ => {
-              this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'Error'}];
+              this.msgs = [{severity: 'info', summary: 'Odmowa', detail: 'Błąd'}];
             });
         },
         reject: () => {
-          this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'Anulowane'}];
+          this.msgs = [{severity: 'info', summary: 'Odmowa', detail: 'Anulowane'}];
         }
       });
   }

@@ -14,7 +14,7 @@ export interface Photographer {
   main?: string;
   name?: string;
   birthday_year?: number;
-  phone_number?: string
+  phone_number?: string;
   gender?: string;
   region?: string;
   city?: string;
